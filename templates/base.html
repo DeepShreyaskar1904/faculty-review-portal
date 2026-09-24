@@ -40,5 +40,24 @@
     <script
         src="{% static 'js/main.js' %}">
     </script>
+{% if messages %}
+
+<script>
+
+    {% for message in messages %}
+
+        Swal.fire({
+
+            icon: "{% if message.tags == 'error' %}error{% else %}success{% endif %}",
+
+            title: "{% if message.tags == 'error' %}Login Failed{% else %}Success{% endif %}",
+
+            text: "{{ message|escapejs }}",
+
+            confirmButtonText: "OK"
+        });
+    {% endfor %}
+</script>
+{% endif %}
 </body>
 </html>

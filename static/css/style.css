@@ -662,5 +662,166 @@ body {
     .rating-select {
         width: 100%;
     }
+}
+/* =========================
+   ADMIN LOGIN
+========================= */
+
+.admin-login-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #dbeafe,
+            transparent 35%
+        ),
+        #f8fafc;
+}
+
+
+.login-card {
+    width: 100%;
+    max-width: 430px;
+
+    background: white;
+
+    padding: 45px 40px;
+
+    border-radius: 24px;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.09);
+}
+
+
+.login-icon {
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 25px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 28px;
+}
+
+
+.login-card h1 {
+    font-size: 30px;
+
+    font-weight: 800;
+
+    margin-bottom: 8px;
+}
+
+
+.login-card p {
+    color: #64748b;
+}
+
+
+.input-group-text {
+    background: #f8fafc;
+
+    border-color: #dbe2ea;
+
+    color: #64748b;
+}
+
+
+.input-group .form-control {
+    border-left: none;
+}
+
+
+.password-toggle {
+    border: 1px solid #dbe2ea;
+
+    background: white;
+
+    color: #64748b;
+}
+
+
+.password-toggle:hover {
+    background: #f8fafc;
+
+    color: #2563eb;
+}
+
+
+.forgot-password-link {
+    text-align: center;
+
+    margin-top: 22px;
+}
+
+
+.forgot-password-link a {
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+}
+
+
+.forgot-password-link a:hover {
+    text-decoration: underline;
+}
+
+
+.login-security {
+    margin-top: 25px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    text-align: center;
+}
+
+
+.login-security i {
+    margin-right: 5px;
+
+    color: #2563eb;
+}
+
+
+@media (max-width: 576px) {
+
+    .login-card {
+        padding: 35px 22px;
+    }
 
 }

@@ -19,3 +19,47 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+// =========================
+// ADMIN PASSWORD TOGGLE
+// =========================
+
+const togglePassword = document.getElementById("togglePassword");
+
+const passwordInput = document.getElementById("password");
+
+
+if (togglePassword && passwordInput) {
+
+    togglePassword.addEventListener("click", function () {
+
+        const isPassword =
+            passwordInput.getAttribute("type") === "password";
+
+
+        passwordInput.setAttribute(
+            "type",
+            isPassword ? "text" : "password"
+        );
+
+
+        const icon =
+            this.querySelector("i");
+
+
+        if (isPassword) {
+
+            icon.classList.remove("fa-eye");
+
+            icon.classList.add("fa-eye-slash");
+
+        } else {
+
+            icon.classList.remove("fa-eye-slash");
+
+            icon.classList.add("fa-eye");
+
+        }
+
+    });
+
+}
