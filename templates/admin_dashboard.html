@@ -1,29 +1,601 @@
 {% extends 'base.html' %}
-
 {% block title %}
 Admin Dashboard | Faculty Review Portal
 {% endblock %}
 
-
 {% block content %}
 
-<div class="container py-5">
+<style>
 
-    <div class="d-flex justify-content-between align-items-center mb-5">
+    /* ==================================================
+       PAGE
+    ================================================== */
+
+    body {
+        background: #f5f7fb;
+    }
+
+    .dashboard-wrapper {
+        padding: 35px 20px;
+        min-height: calc(100vh - 70px);
+    }
+
+
+    /* ==================================================
+       HEADER
+    ================================================== */
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        gap: 20px;
+    }
+
+    .dashboard-title {
+        font-size: 30px;
+        font-weight: 700;
+        color: #172033;
+        margin-bottom: 5px;
+    }
+
+    .dashboard-subtitle {
+        color: #6c757d;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .logout-btn {
+        border: none;
+        background: #fff;
+        color: #dc3545;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        transition: 0.2s;
+    }
+
+    .logout-btn:hover {
+        background: #dc3545;
+        color: #fff;
+    }
+
+
+    /* ==================================================
+       STAT CARDS
+    ================================================== */
+
+    .stat-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 22px;
+        border: 1px solid #edf0f5;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        height: 100%;
+        transition: 0.25s;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+    }
+
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .icon-blue {
+        background: #e8f1ff;
+        color: #0d6efd;
+    }
+
+    .icon-purple {
+        background: #f0e9ff;
+        color: #6f42c1;
+    }
+
+    .icon-yellow {
+        background: #fff5d8;
+        color: #f0ad00;
+    }
+
+    .icon-green {
+        background: #e7f8ef;
+        color: #198754;
+    }
+
+    .icon-gray {
+        background: #f0f1f3;
+        color: #6c757d;
+    }
+
+    .icon-red {
+        background: #ffe9ec;
+        color: #dc3545;
+    }
+
+    .stat-label {
+        font-size: 13px;
+        color: #7a8494;
+        margin-bottom: 4px;
+    }
+
+    .stat-value {
+        font-size: 27px;
+        font-weight: 700;
+        color: #172033;
+    }
+
+
+    /* ==================================================
+       CHART CARDS
+    ================================================== */
+
+    .dashboard-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 24px;
+        border: 1px solid #edf0f5;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        height: 100%;
+    }
+
+    .card-title {
+        font-weight: 700;
+        color: #172033;
+        margin-bottom: 20px;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 280px;
+    }
+
+
+    /* ==================================================
+       REVIEWS CARD
+    ================================================== */
+
+    .reviews-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 24px;
+        border: 1px solid #edf0f5;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+        margin-top: 25px;
+    }
+
+    .reviews-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        gap: 15px;
+    }
+
+
+    /* ==================================================
+       FILTER BOX
+    ================================================== */
+
+    .review-filter-form {
+        background: #f8f9fc;
+        border: 1px solid #edf0f5;
+        border-radius: 15px;
+        padding: 18px;
+        margin-bottom: 20px;
+    }
+
+    .filter-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #5f6877;
+        margin-bottom: 7px;
+    }
+
+    .filter-input {
+        height: 43px;
+        border-radius: 9px;
+        border: 1px solid #dfe4ea;
+        font-size: 13px;
+    }
+
+    .filter-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 3px rgba(13,110,253,0.08);
+    }
+
+    .filter-btn {
+        height: 43px;
+        background: linear-gradient(
+            135deg,
+            #0d6efd,
+            #6f42c1
+        );
+        color: white;
+        border: none;
+        border-radius: 9px;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 0 17px;
+    }
+
+    .filter-btn:hover {
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    .clear-btn {
+        height: 43px;
+        width: 43px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9px;
+        background: white;
+        border: 1px solid #dfe4ea;
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+    .clear-btn:hover {
+        background: #f1f3f5;
+        color: #dc3545;
+    }
+
+
+    /* ==================================================
+       RESULTS INFO
+    ================================================== */
+
+    .results-info {
+        color: #7a8494;
+        font-size: 12px;
+        margin: 15px 0;
+    }
+
+    .results-info strong {
+        color: #343a40;
+    }
+
+
+    /* ==================================================
+       TABLE
+    ================================================== */
+
+    .table-responsive {
+        border-radius: 12px;
+    }
+
+    .table {
+        margin-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .table thead th {
+        background: #f8f9fc;
+        color: #5f6877;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        padding: 14px;
+        border-bottom: 1px solid #e9edf2;
+        white-space: nowrap;
+    }
+
+    .table tbody td {
+        padding: 15px 14px;
+        font-size: 13px;
+        color: #343a40;
+    }
+
+    .table tbody tr:hover {
+        background: #fafbfe;
+    }
+
+    .student-name {
+        font-weight: 600;
+        color: #172033;
+    }
+
+    .student-email {
+        font-size: 11px;
+        color: #8a94a6;
+        margin-top: 3px;
+    }
+
+    .rating-stars {
+        color: #f5b301;
+        white-space: nowrap;
+    }
+
+    .sentiment-badge {
+        padding: 6px 10px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    .sentiment-positive {
+        background: #e7f8ef;
+        color: #198754;
+    }
+
+    .sentiment-neutral {
+        background: #f0f1f3;
+        color: #6c757d;
+    }
+
+    .sentiment-negative {
+        background: #ffe9ec;
+        color: #dc3545;
+    }
+
+    .feedback-text {
+        max-width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+
+    /* ==================================================
+       EMPTY STATE
+    ================================================== */
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        color: #8a94a6;
+    }
+
+    .empty-state i {
+        font-size: 45px;
+        margin-bottom: 15px;
+    }
+
+
+    /* ==================================================
+       PAGINATION
+    ================================================== */
+
+    .pagination-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 25px;
+    }
+
+    .pagination {
+        margin-bottom: 0;
+    }
+
+    .pagination .page-link {
+        border: 1px solid #e1e5ea;
+        color: #0d6efd;
+        margin: 0 3px;
+        border-radius: 8px !important;
+        min-width: 38px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+    }
+
+    .pagination .page-link:hover {
+        background: #f0f5ff;
+    }
+
+    .pagination .page-item.active .page-link {
+        background: linear-gradient(
+            135deg,
+            #0d6efd,
+            #6f42c1
+        );
+        border-color: transparent;
+        color: white;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #adb5bd;
+        background: #f8f9fa;
+    }
+
+
+
+    /* ==================================================
+       FULL REVIEW MODAL
+    ================================================== */
+
+    .review-modal {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    }
+
+    .review-modal-header {
+        background: linear-gradient(135deg, #0d6efd, #6f42c1);
+        color: white;
+        border: none;
+        padding: 20px 24px;
+    }
+
+    .review-modal-header .modal-title {
+        font-weight: 700;
+    }
+
+    .review-modal-header small {
+        opacity: 0.85;
+    }
+
+    .review-detail-card {
+        background: #f8f9fc;
+        border: 1px solid #edf0f5;
+        border-radius: 14px;
+        padding: 18px;
+        margin-bottom: 16px;
+    }
+
+    .detail-title {
+        font-weight: 700;
+        font-size: 16px;
+        color: #172033;
+        margin-bottom: 18px;
+    }
+
+    .detail-title i {
+        color: #6f42c1;
+        margin-right: 8px;
+    }
+
+    .review-detail-card label {
+        display: block;
+        font-size: 11px;
+        font-weight: 700;
+        color: #7a8494;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 5px;
+    }
+
+    .detail-value {
+        font-size: 14px;
+        font-weight: 600;
+        color: #172033;
+        word-break: break-word;
+    }
+
+    .rating-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .rating-item {
+        background: #fff;
+        border: 1px solid #e9edf2;
+        border-radius: 11px;
+        padding: 13px;
+    }
+
+    .rating-item span {
+        display: block;
+        font-size: 12px;
+        color: #7a8494;
+        margin-bottom: 5px;
+    }
+
+    .rating-item strong {
+        color: #172033;
+        font-size: 14px;
+    }
+
+    .feedback-full {
+        background: #fff;
+        border-left: 4px solid #6f42c1;
+        border-radius: 8px;
+        padding: 16px;
+        line-height: 1.7;
+        color: #343a40;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    .view-review-btn {
+        border: none;
+        border-radius: 8px;
+        padding: 7px 11px;
+        font-size: 12px;
+        font-weight: 600;
+        background: #eef4ff;
+        color: #0d6efd;
+        transition: 0.2s;
+        white-space: nowrap;
+    }
+
+    .view-review-btn:hover {
+        background: #0d6efd;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    /* ==================================================
+       MOBILE
+    ================================================== */
+
+    @media (max-width: 768px) {
+
+        .dashboard-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .dashboard-title {
+            font-size: 25px;
+        }
+
+        .reviews-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .review-filter-form {
+            padding: 15px;
+        }
+
+        .results-info {
+            font-size: 11px;
+        }
+
+        .pagination .page-link {
+            min-width: 34px;
+            height: 34px;
+        }
+
+    }
+
+</style>
+
+
+<div class="dashboard-wrapper">
+
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <div class="dashboard-header">
 
         <div>
 
-            <span class="hero-badge">
-                <i class="fa-solid fa-chart-line"></i>
-                Private Dashboard
-            </span>
+            <h1 class="dashboard-title">
 
-            <h1 class="mt-3 fw-bold">
-                Welcome, {{ request.user.username }}
+                <i class="fas fa-chart-line me-2"></i>
+
+                Faculty Review Dashboard
+
             </h1>
 
-            <p class="text-muted">
-                Faculty Review Portal Analytics
+            <p class="dashboard-subtitle">
+
+                Welcome back, {{ request.user.username }} 👋
+
+                Here's an overview of your student feedback.
+
             </p>
 
         </div>
@@ -31,10 +603,10 @@ Admin Dashboard | Faculty Review Portal
 
         <a
             href="{% url 'admin_logout' %}"
-            class="btn btn-outline-danger"
+            class="logout-btn"
         >
 
-            <i class="fa-solid fa-right-from-bracket me-2"></i>
+            <i class="fas fa-sign-out-alt me-1"></i>
 
             Logout
 
@@ -43,11 +615,1689 @@ Admin Dashboard | Faculty Review Portal
     </div>
 
 
-    <div class="alert alert-primary">
 
-        <i class="fa-solid fa-circle-info me-2"></i>
-        Authentication is working.
-        The full analytics dashboard will be built next.
+    <!-- ==================================================
+         MAIN STATISTICS
+    ================================================== -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- TOTAL REVIEWS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-blue">
+
+                    <i class="fas fa-comments"></i>
+
+                </div>
+
+                <div class="stat-label">
+
+                    Total Reviews
+
+                </div>
+
+                <div class="stat-value">
+
+                    {{ total_reviews }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- UNIQUE STUDENTS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-purple">
+
+                    <i class="fas fa-user-graduate"></i>
+
+                </div>
+
+                <div class="stat-label">
+
+                    Unique Students
+
+                </div>
+
+                <div class="stat-value">
+
+                    {{ total_students }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- AVERAGE RATING -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-yellow">
+
+                    <i class="fas fa-star"></i>
+
+                </div>
+
+                <div class="stat-label">
+
+                    Average Rating
+
+                </div>
+
+                <div class="stat-value">
+
+                    {{ average_rating }}
+
+                    <small
+                        style="font-size:15px;color:#f5b301;"
+                    >
+                        / 5
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- POSITIVE REVIEWS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="stat-card">
+
+                <div class="stat-icon icon-green">
+
+                    <i class="fas fa-smile"></i>
+
+                </div>
+
+                <div class="stat-label">
+
+                    Positive Reviews
+
+                </div>
+
+                <div class="stat-value">
+
+                    {{ positive_count }}
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
+
+
+
+    <!-- ==================================================
+         SENTIMENT CARDS
+    ================================================== -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- POSITIVE -->
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon icon-green mb-0">
+
+                        <i class="fas fa-thumbs-up"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="stat-label">
+
+                            Positive
+
+                        </div>
+
+                        <div class="stat-value">
+
+                            {{ positive_count }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NEUTRAL -->
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon icon-gray mb-0">
+
+                        <i class="fas fa-meh"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="stat-label">
+
+                            Neutral
+
+                        </div>
+
+                        <div class="stat-value">
+
+                            {{ neutral_count }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NEGATIVE -->
+
+        <div class="col-md-4">
+
+            <div class="stat-card">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="stat-icon icon-red mb-0">
+
+                        <i class="fas fa-thumbs-down"></i>
+
+                    </div>
+
+                    <div>
+
+                        <div class="stat-label">
+
+                            Negative
+
+                        </div>
+
+                        <div class="stat-value">
+
+                            {{ negative_count }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         CHARTS
+    ================================================== -->
+
+    <div class="row g-4">
+
+
+        <!-- RATING CHART -->
+
+        <div class="col-lg-7">
+
+            <div class="dashboard-card">
+
+                <h5 class="card-title">
+
+                    <i class="fas fa-star me-2"></i>
+
+                    Rating Distribution
+
+                </h5>
+
+                <div class="chart-container">
+
+                    <canvas id="ratingChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- SENTIMENT CHART -->
+
+        <div class="col-lg-5">
+
+            <div class="dashboard-card">
+
+                <h5 class="card-title">
+
+                    <i class="fas fa-chart-pie me-2"></i>
+
+                    Sentiment Overview
+
+                </h5>
+
+                <div class="chart-container">
+
+                    <canvas id="sentimentChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ==================================================
+         STUDENT REVIEWS
+    ================================================== -->
+
+    <div class="reviews-card">
+
+
+        <!-- HEADER -->
+
+        <div class="reviews-header">
+
+            <div>
+
+                <h5 class="card-title mb-1">
+
+                    <i class="fas fa-comments me-2"></i>
+
+                    Student Reviews
+
+                </h5>
+
+                <small class="text-muted">
+
+                    Search and filter student feedback
+
+                </small>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================================
+             FILTER FORM
+        ================================================== -->
+
+        <form
+            method="GET"
+            class="review-filter-form"
+        >
+
+            <div class="row g-3">
+
+
+                <!-- SEARCH -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <label class="filter-label">
+
+                        <i class="fas fa-search me-1"></i>
+
+                        Search
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control filter-input"
+                        placeholder="Name, email, course, feedback..."
+                        value="{{ search_query }}"
+                    >
+
+                </div>
+
+
+                <!-- COURSE -->
+
+                <div class="col-lg-2 col-md-6">
+
+                    <label class="filter-label">
+
+                        Course
+
+                    </label>
+
+                    <select
+                        name="course"
+                        class="form-select filter-input"
+                    >
+
+                        <option value="">
+
+                            All Courses
+
+                        </option>
+
+
+                        {% for course in courses %}
+
+                            <option
+                                value="{{ course }}"
+                                {% if selected_course == course %}
+                                    selected
+                                {% endif %}
+                            >
+
+                                {{ course }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- RATING -->
+
+                <div class="col-lg-2 col-md-6">
+
+                    <label class="filter-label">
+
+                        Rating
+
+                    </label>
+
+                    <select
+                        name="rating"
+                        class="form-select filter-input"
+                    >
+
+                        <option value="">
+
+                            All Ratings
+
+                        </option>
+
+                        <option
+                            value="5"
+                            {% if selected_rating == "5" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            ⭐⭐⭐⭐⭐ 5
+
+                        </option>
+
+                        <option
+                            value="4"
+                            {% if selected_rating == "4" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            ⭐⭐⭐⭐ 4
+
+                        </option>
+
+                        <option
+                            value="3"
+                            {% if selected_rating == "3" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            ⭐⭐⭐ 3
+
+                        </option>
+
+                        <option
+                            value="2"
+                            {% if selected_rating == "2" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            ⭐⭐ 2
+
+                        </option>
+
+                        <option
+                            value="1"
+                            {% if selected_rating == "1" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            ⭐ 1
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SENTIMENT -->
+
+                <div class="col-lg-2 col-md-6">
+
+                    <label class="filter-label">
+
+                        Sentiment
+
+                    </label>
+
+                    <select
+                        name="sentiment"
+                        class="form-select filter-input"
+                    >
+
+                        <option value="">
+
+                            All Sentiments
+
+                        </option>
+
+                        <option
+                            value="positive"
+                            {% if selected_sentiment == "positive" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            😊 Positive
+
+                        </option>
+
+                        <option
+                            value="neutral"
+                            {% if selected_sentiment == "neutral" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            😐 Neutral
+
+                        </option>
+
+                        <option
+                            value="negative"
+                            {% if selected_sentiment == "negative" %}
+                                selected
+                            {% endif %}
+                        >
+
+                            😞 Negative
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="col-lg-2 col-md-12">
+
+                    <label class="filter-label">
+
+                        &nbsp;
+
+                    </label>
+
+                    <div class="d-flex gap-2">
+
+                        <button
+                            type="submit"
+                            class="btn filter-btn"
+                        >
+
+                            <i class="fas fa-filter me-1"></i>
+
+                            Filter
+
+                        </button>
+
+
+                        <a
+                            href="{% url 'admin_dashboard' %}"
+                            class="clear-btn"
+                            title="Clear Filters"
+                        >
+
+                            <i class="fas fa-times"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+
+
+        <!-- ==================================================
+             RESULTS INFO
+        ================================================== -->
+
+        <div class="results-info">
+
+            Showing
+
+            <strong>
+                {{ recent_reviews.start_index }}
+            </strong>
+
+            to
+
+            <strong>
+                {{ recent_reviews.end_index }}
+            </strong>
+
+            of
+
+            <strong>
+                {{ recent_reviews.paginator.count }}
+            </strong>
+
+            reviews
+
+        </div>
+
+
+
+        <!-- ==================================================
+             REVIEWS TABLE
+        ================================================== -->
+
+        {% if recent_reviews %}
+
+            <div class="table-responsive">
+
+                <table class="table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Course
+                            </th>
+
+                            <th>
+                                Batch
+                            </th>
+
+                            <th>
+                                Rating
+                            </th>
+
+                            <th>
+                                Sentiment
+                            </th>
+
+                            <th>
+                                Feedback
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for review in recent_reviews %}
+
+                            <tr>
+
+
+                                <!-- STUDENT -->
+
+                                <td>
+
+                                    <div class="student-name">
+
+                                        {{ review.student_name }}
+
+                                    </div>
+
+                                    <div class="student-email">
+
+                                        {{ review.student_email }}
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- COURSE -->
+
+                                <td>
+
+                                    {{ review.course }}
+
+                                </td>
+
+
+                                <!-- BATCH -->
+
+                                <td>
+
+                                    {{ review.batch|default:"-" }}
+
+                                </td>
+
+
+                                <!-- RATING -->
+
+                                <td>
+
+                                    <span class="rating-stars">
+
+                                        {% for i in "12345" %}
+
+                                            {% if forloop.counter <= review.rating %}
+
+                                                <i class="fas fa-star"></i>
+
+                                            {% else %}
+
+                                                <i class="far fa-star"></i>
+
+                                            {% endif %}
+
+                                        {% endfor %}
+
+                                    </span>
+
+                                </td>
+
+
+                                <!-- SENTIMENT -->
+
+                                <td>
+
+                                    {% if review.sentiment == "positive" %}
+
+                                        <span class="sentiment-badge sentiment-positive">
+
+                                            <i class="fas fa-smile me-1"></i>
+
+                                            Positive
+
+                                        </span>
+
+
+                                    {% elif review.sentiment == "negative" %}
+
+                                        <span class="sentiment-badge sentiment-negative">
+
+                                            <i class="fas fa-frown me-1"></i>
+
+                                            Negative
+
+                                        </span>
+
+
+                                    {% else %}
+
+                                        <span class="sentiment-badge sentiment-neutral">
+
+                                            <i class="fas fa-meh me-1"></i>
+
+                                            Neutral
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- FEEDBACK -->
+
+                                <td>
+
+                                    <div
+                                        class="feedback-text"
+                                        title="{{ review.feedback }}"
+                                    >
+
+                                        {{ review.feedback }}
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- DATE -->
+
+                                <td>
+
+                                    {{ review.created_at|date:"d M Y" }}
+
+                                </td>
+
+
+                                <!-- ACTION -->
+
+                                <td>
+
+                                    <button
+                                        type="button"
+                                        class="view-review-btn"
+                                        data-review-id="{{ review.id }}"
+                                    >
+                                        <i class="fas fa-eye me-1"></i>
+                                        View
+                                    </button>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- ==================================================
+                 PAGINATION
+            ================================================== -->
+
+            {% if recent_reviews.paginator.num_pages > 1 %}
+
+                <div class="pagination-wrapper">
+
+                    <nav>
+
+                        <ul class="pagination">
+
+
+                            <!-- PREVIOUS -->
+
+                            {% if recent_reviews.has_previous %}
+
+                                <li class="page-item">
+
+                                    <a
+                                        class="page-link"
+                                        href="?page={{ recent_reviews.previous_page_number }}&search={{ search_query|urlencode }}&course={{ selected_course|urlencode }}&rating={{ selected_rating }}&sentiment={{ selected_sentiment }}"
+                                    >
+
+                                        <i class="fas fa-chevron-left"></i>
+
+                                    </a>
+
+                                </li>
+
+                            {% else %}
+
+                                <li class="page-item disabled">
+
+                                    <span class="page-link">
+
+                                        <i class="fas fa-chevron-left"></i>
+
+                                    </span>
+
+                                </li>
+
+                            {% endif %}
+
+
+
+                            <!-- PAGE NUMBERS -->
+
+                            {% for num in recent_reviews.paginator.page_range %}
+
+                                {% if num == recent_reviews.number %}
+
+                                    <li class="page-item active">
+
+                                        <span class="page-link">
+
+                                            {{ num }}
+
+                                        </span>
+
+                                    </li>
+
+                                {% else %}
+
+                                    <li class="page-item">
+
+                                        <a
+                                            class="page-link"
+                                            href="?page={{ num }}&search={{ search_query|urlencode }}&course={{ selected_course|urlencode }}&rating={{ selected_rating }}&sentiment={{ selected_sentiment }}"
+                                        >
+
+                                            {{ num }}
+
+                                        </a>
+
+                                    </li>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+
+
+                            <!-- NEXT -->
+
+                            {% if recent_reviews.has_next %}
+
+                                <li class="page-item">
+
+                                    <a
+                                        class="page-link"
+                                        href="?page={{ recent_reviews.next_page_number }}&search={{ search_query|urlencode }}&course={{ selected_course|urlencode }}&rating={{ selected_rating }}&sentiment={{ selected_sentiment }}"
+                                    >
+
+                                        <i class="fas fa-chevron-right"></i>
+
+                                    </a>
+
+                                </li>
+
+                            {% else %}
+
+                                <li class="page-item disabled">
+
+                                    <span class="page-link">
+
+                                        <i class="fas fa-chevron-right"></i>
+
+                                    </span>
+
+                                </li>
+
+                            {% endif %}
+
+                        </ul>
+
+                    </nav>
+
+                </div>
+
+            {% endif %}
+
+
+
+        {% else %}
+
+            <!-- ==================================================
+                 NO RESULTS
+            ================================================== -->
+
+            <div class="empty-state">
+
+                <i class="fas fa-search"></i>
+
+                <h5>
+
+                    No reviews found
+
+                </h5>
+
+                <p>
+
+                    Try changing your search or filters.
+
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
 </div>
+
+
+
+
+<!-- ==================================================
+     FULL REVIEW MODAL
+================================================== -->
+
+<div
+    class="modal fade"
+    id="reviewModal"
+    tabindex="-1"
+    aria-labelledby="reviewModalLabel"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+
+        <div class="modal-content review-modal">
+
+            <!-- HEADER -->
+
+            <div class="modal-header review-modal-header">
+
+                <div>
+
+                    <h5
+                        class="modal-title mb-1"
+                        id="reviewModalLabel"
+                    >
+                        <i class="fas fa-file-alt me-2"></i>
+                        Full Review
+                    </h5>
+
+                    <small>
+                        Complete student feedback · Read only
+                    </small>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+
+            </div>
+
+
+            <!-- BODY -->
+
+            <div class="modal-body">
+
+                <!-- LOADING -->
+
+                <div
+                    id="reviewLoading"
+                    class="text-center py-5"
+                >
+
+                    <div
+                        class="spinner-border text-primary"
+                        role="status"
+                    ></div>
+
+                    <p class="mt-3 text-muted mb-0">
+                        Loading review...
+                    </p>
+
+                </div>
+
+
+                <!-- ERROR -->
+
+                <div
+                    id="reviewError"
+                    class="alert alert-danger"
+                    style="display:none;"
+                ></div>
+
+
+                <!-- CONTENT -->
+
+                <div
+                    id="reviewContent"
+                    style="display:none;"
+                >
+
+                    <!-- STUDENT INFORMATION -->
+
+                    <div class="review-detail-card">
+
+                        <div class="detail-title">
+
+                            <i class="fas fa-user-graduate"></i>
+
+                            Student Information
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+
+                                <label>
+                                    Student Name
+                                </label>
+
+                                <div
+                                    id="detailStudentName"
+                                    class="detail-value"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-md-6 mb-3">
+
+                                <label>
+                                    Email
+                                </label>
+
+                                <div
+                                    id="detailStudentEmail"
+                                    class="detail-value"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label>
+                                    Course
+                                </label>
+
+                                <div
+                                    id="detailCourse"
+                                    class="detail-value"
+                                ></div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label>
+                                    Batch
+                                </label>
+
+                                <div
+                                    id="detailBatch"
+                                    class="detail-value"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RATING DETAILS -->
+
+                    <div class="review-detail-card">
+
+                        <div class="detail-title">
+
+                            <i class="fas fa-star"></i>
+
+                            Rating Details
+
+                        </div>
+
+                        <div class="rating-grid">
+
+                            <div class="rating-item">
+
+                                <span>
+                                    Overall Rating
+                                </span>
+
+                                <strong id="detailRating"></strong>
+
+                            </div>
+
+
+                            <div class="rating-item">
+
+                                <span>
+                                    Teaching Quality
+                                </span>
+
+                                <strong id="detailTeaching"></strong>
+
+                            </div>
+
+
+                            <div class="rating-item">
+
+                                <span>
+                                    Communication
+                                </span>
+
+                                <strong id="detailCommunication"></strong>
+
+                            </div>
+
+
+                            <div class="rating-item">
+
+                                <span>
+                                    Practical Knowledge
+                                </span>
+
+                                <strong id="detailPractical"></strong>
+
+                            </div>
+
+
+                            <div class="rating-item">
+
+                                <span>
+                                    Doubt Solving
+                                </span>
+
+                                <strong id="detailDoubt"></strong>
+
+                            </div>
+
+
+                            <div class="rating-item">
+
+                                <span>
+                                    Sentiment
+                                </span>
+
+                                <strong id="detailSentiment"></strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEEDBACK -->
+
+                    <div class="review-detail-card">
+
+                        <div class="detail-title">
+
+                            <i class="fas fa-comment-dots"></i>
+
+                            Student Feedback
+
+                        </div>
+
+                        <div
+                            id="detailFeedback"
+                            class="feedback-full"
+                        ></div>
+
+                    </div>
+
+
+                    <!-- SUBMISSION INFORMATION -->
+
+                    <div class="review-detail-card mb-0">
+
+                        <div class="detail-title">
+
+                            <i class="fas fa-calendar-alt"></i>
+
+                            Submission Information
+
+                        </div>
+
+                        <label>
+                            Submitted At
+                        </label>
+
+                        <div
+                            id="detailCreatedAt"
+                            class="detail-value"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- FOOTER -->
+
+            <div class="modal-footer">
+
+                <span class="text-muted me-auto small">
+
+                    <i class="fas fa-lock me-1"></i>
+
+                    Admin view · Read only
+
+                </span>
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ==================================================
+     CHART.JS
+================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    /* ==================================================
+       RATING CHART
+    ================================================== */
+
+    const ratingCtx =
+        document.getElementById('ratingChart');
+
+
+    new Chart(
+        ratingCtx,
+        {
+
+            type: 'bar',
+
+            data: {
+
+                labels: [
+                    '1 Star',
+                    '2 Stars',
+                    '3 Stars',
+                    '4 Stars',
+                    '5 Stars'
+                ],
+
+                datasets: [{
+
+                    label: 'Number of Reviews',
+
+                    data: [
+
+                        {{ rating_counts.0 }},
+
+                        {{ rating_counts.1 }},
+
+                        {{ rating_counts.2 }},
+
+                        {{ rating_counts.3 }},
+
+                        {{ rating_counts.4 }}
+
+                    ],
+
+                    borderWidth: 1,
+
+                    borderRadius: 8
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+
+                        display: false
+
+                    }
+
+                },
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true,
+
+                        ticks: {
+
+                            precision: 0
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+    );
+
+
+
+    /* ==================================================
+       SENTIMENT CHART
+    ================================================== */
+
+    const sentimentCtx =
+        document.getElementById('sentimentChart');
+
+
+    new Chart(
+        sentimentCtx,
+        {
+
+            type: 'doughnut',
+
+            data: {
+
+                labels: [
+                    'Positive',
+                    'Neutral',
+                    'Negative'
+                ],
+
+                datasets: [{
+
+                    data: [
+
+                        {{ positive_count }},
+
+                        {{ neutral_count }},
+
+                        {{ negative_count }}
+
+                    ],
+
+                    borderWidth: 3
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                cutout: '65%',
+
+                plugins: {
+
+                    legend: {
+
+                        position: 'bottom'
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    );
+</script>
+
+
+<!-- ==================================================
+     FULL REVIEW MODAL JAVASCRIPT
+================================================== -->
+
+<script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const reviewModalElement =
+            document.getElementById("reviewModal");
+
+        if (!reviewModalElement) {
+            return;
+        }
+
+        const reviewModal =
+            new bootstrap.Modal(reviewModalElement);
+
+
+        document
+            .querySelectorAll(".view-review-btn")
+            .forEach(function (button) {
+
+                button.addEventListener("click", function () {
+
+                    const reviewId =
+                        this.getAttribute("data-review-id");
+
+
+                    // Reset modal state
+
+                    document.getElementById(
+                        "reviewLoading"
+                    ).style.display = "block";
+
+                    document.getElementById(
+                        "reviewContent"
+                    ).style.display = "none";
+
+                    document.getElementById(
+                        "reviewError"
+                    ).style.display = "none";
+
+
+                    // Open modal
+
+                    reviewModal.show();
+
+
+                    // Load review from Django
+
+                    fetch(
+                        `/review/${reviewId}/`,
+                        {
+                            method: "GET",
+                            headers: {
+                                "X-Requested-With": "XMLHttpRequest"
+                            }
+                        }
+                    )
+
+                    .then(function (response) {
+
+                        if (!response.ok) {
+                            throw new Error(
+                                "Unable to load review."
+                            );
+                        }
+
+                        return response.json();
+
+                    })
+
+                    .then(function (data) {
+
+                        // Student information
+
+                        document.getElementById(
+                            "detailStudentName"
+                        ).textContent =
+                            data.student_name || "N/A";
+
+                        document.getElementById(
+                            "detailStudentEmail"
+                        ).textContent =
+                            data.student_email || "N/A";
+
+                        document.getElementById(
+                            "detailCourse"
+                        ).textContent =
+                            data.course || "N/A";
+
+                        document.getElementById(
+                            "detailBatch"
+                        ).textContent =
+                            data.batch || "-";
+
+
+                        // Ratings
+
+                        document.getElementById(
+                            "detailRating"
+                        ).textContent =
+                            `${data.rating}/5 ⭐`;
+
+                        document.getElementById(
+                            "detailTeaching"
+                        ).textContent =
+                            `${data.teaching_quality}/5 ⭐`;
+
+                        document.getElementById(
+                            "detailCommunication"
+                        ).textContent =
+                            `${data.communication}/5 ⭐`;
+
+                        document.getElementById(
+                            "detailPractical"
+                        ).textContent =
+                            `${data.practical_knowledge}/5 ⭐`;
+
+                        document.getElementById(
+                            "detailDoubt"
+                        ).textContent =
+                            `${data.doubt_solving}/5 ⭐`;
+
+
+                        // Sentiment
+
+                        const sentiment =
+                            data.sentiment || "neutral";
+
+                        document.getElementById(
+                            "detailSentiment"
+                        ).textContent =
+                            sentiment.charAt(0).toUpperCase()
+                            + sentiment.slice(1);
+
+
+                        // Full feedback
+
+                        document.getElementById(
+                            "detailFeedback"
+                        ).textContent =
+                            data.feedback || "No feedback provided.";
+
+
+                        // Submission date
+
+                        document.getElementById(
+                            "detailCreatedAt"
+                        ).textContent =
+                            data.created_at || "N/A";
+
+
+                        // Hide loader and show content
+
+                        document.getElementById(
+                            "reviewLoading"
+                        ).style.display = "none";
+
+                        document.getElementById(
+                            "reviewContent"
+                        ).style.display = "block";
+
+                    })
+
+                    .catch(function (error) {
+
+                        console.error(
+                            "Review loading error:",
+                            error
+                        );
+
+                        document.getElementById(
+                            "reviewLoading"
+                        ).style.display = "none";
+
+                        const errorBox =
+                            document.getElementById(
+                                "reviewError"
+                            );
+
+                        errorBox.textContent =
+                            "Unable to load this review. Please try again.";
+
+                        errorBox.style.display = "block";
+
+                    });
+
+                });
+
+            });
+
+    });
+
+</script>
 {% endblock %}
