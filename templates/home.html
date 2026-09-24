@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Faculty Feedback | Deep Shreyaskar
+{% endblock %}
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-7">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-comments"></i>
+                    Student Feedback Portal
+                </div>
+                <h1 class="hero-title">
+                    Your Feedback
+                    <span>Matters.</span>
+                </h1>
+                <p class="hero-description">
+                    Help me improve my teaching and create
+                    a better learning experience for every student.
+                </p>
+                <a
+                    href="{% url 'submit_review' %}"
+                    class="btn btn-primary-custom"
+                >
+                    Give Your Feedback
+                    <i class="fa-solid fa-arrow-right ms-2"></i>
+                </a>
+            </div>
+            <div class="col-lg-5">
+                <div class="faculty-card">
+                    <div class="faculty-icon">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <h3>
+                        Deep Shreyaskar
+                    </h3>
+                    <p>
+                        AI/ML Educator & Developer
+                    </p>
+                    <div class="faculty-divider"></div>
+                    <div class="faculty-stat">
+                        <i class="fa-solid fa-star"></i>
+                        <span>
+                            Honest feedback helps me grow.
+                        </span>
+                    </div>
+                    <div class="faculty-stat">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>
+                            Your feedback is handled privately.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="info-section">
+    <div class="container">
+        <div class="section-heading">
+            <span>
+                HOW IT WORKS
+            </span>
+            <h2>
+                Share. Improve. Grow.
+            </h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-pen"></i>
+                    </div>
+                    <h4>
+                        01. Give Feedback
+                    </h4>
+                    <p>
+                        Share your honest experience
+                        about the teaching and learning process.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h4>
+                        02. Help Improve
+                    </h4>
+                    <p>
+                        Your feedback helps identify
+                        areas that can be improved.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card">
+                    <div class="info-icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                    <h4>
+                        03. Make an Impact
+                    </h4>
+                    <p>
+                        Every genuine response contributes
+                        to a better learning environment.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

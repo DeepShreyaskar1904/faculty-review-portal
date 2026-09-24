@@ -1,0 +1,666 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    color: #172033;
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero-section {
+    min-height: 100vh;
+    background:
+        radial-gradient(
+            circle at top right,
+            #dbeafe,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #f8fafc,
+            #eef4ff
+        );
+
+    display: flex;
+    align-items: center;
+}
+
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 15px;
+
+    background: #e8f0ff;
+
+    color: #2563eb;
+
+    border-radius: 50px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 20px;
+}
+
+
+.hero-title {
+    font-size: clamp(45px, 6vw, 75px);
+
+    font-weight: 800;
+
+    line-height: 1.05;
+
+    letter-spacing: -3px;
+
+    margin-bottom: 25px;
+}
+
+
+.hero-title span {
+    color: #2563eb;
+}
+
+
+.hero-description {
+    max-width: 600px;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #64748b;
+
+    margin-bottom: 35px;
+}
+
+
+.btn-primary-custom {
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding: 14px 25px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.btn-primary-custom:hover {
+    background: #1d4ed8;
+
+    color: white;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   FACULTY CARD
+========================= */
+
+.faculty-card {
+    background: white;
+
+    border-radius: 25px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.10);
+
+    text-align: center;
+
+    border: 1px solid #e2e8f0;
+}
+
+
+.faculty-icon {
+    width: 90px;
+    height: 90px;
+
+    margin: auto auto 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 35px;
+}
+
+
+.faculty-card h3 {
+    font-weight: 700;
+}
+
+
+.faculty-card p {
+    color: #64748b;
+}
+
+
+.faculty-divider {
+    height: 1px;
+
+    background: #e2e8f0;
+
+    margin: 25px 0;
+}
+
+
+.faculty-stat {
+    display: flex;
+
+    gap: 12px;
+
+    text-align: left;
+
+    margin: 15px 0;
+
+    color: #475569;
+
+    font-size: 14px;
+}
+
+
+.faculty-stat i {
+    color: #2563eb;
+
+    margin-top: 3px;
+}
+
+
+/* =========================
+   INFO SECTION
+========================= */
+
+.info-section {
+    padding: 100px 0;
+}
+
+
+.section-heading {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+
+.section-heading span {
+    color: #2563eb;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+
+.section-heading h2 {
+    font-size: 40px;
+
+    font-weight: 800;
+
+    margin-top: 10px;
+}
+
+
+.info-card {
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    height: 100%;
+
+    transition: 0.3s;
+}
+
+
+.info-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+
+.info-icon {
+    width: 55px;
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border-radius: 15px;
+
+    font-size: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+.info-card h4 {
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+
+.info-card p {
+    color: #64748b;
+
+    line-height: 1.7;
+}
+
+
+/* =========================
+   REVIEW PAGE
+========================= */
+
+.review-page {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #dbeafe,
+            transparent 30%
+        ),
+        #f8fafc;
+}
+
+
+.review-header {
+    margin-bottom: 45px;
+}
+
+
+.review-header h1 {
+    font-weight: 800;
+
+    font-size: 45px;
+
+    margin-bottom: 12px;
+}
+
+
+.review-header p {
+    color: #64748b;
+}
+
+
+.review-container {
+    max-width: 850px;
+
+    margin: auto;
+
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 25px;
+
+    padding: 45px;
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.07);
+}
+
+
+/* =========================
+   FORM
+========================= */
+
+.form-section {
+    padding-bottom: 40px;
+
+    margin-bottom: 40px;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+
+.form-section-title {
+    display: flex;
+
+    gap: 15px;
+
+    margin-bottom: 30px;
+}
+
+
+.section-number {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-weight: 700;
+}
+
+
+.form-section-title h3 {
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin: 0 0 5px;
+}
+
+
+.form-section-title p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin: 0;
+}
+
+
+.form-label {
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+
+    border: 1px solid #dbe2ea;
+
+    padding: 12px 14px;
+}
+
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+/* =========================
+   RATINGS
+========================= */
+
+.rating-grid {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+.rating-item {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 20px;
+
+    background: #f8fafc;
+
+    border-radius: 15px;
+
+    border: 1px solid #e2e8f0;
+}
+
+
+.rating-item h5 {
+    margin: 0 0 4px;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.rating-item small {
+    color: #64748b;
+}
+
+
+.rating-select {
+    width: 180px;
+}
+
+
+/* =========================
+   ANONYMOUS
+========================= */
+
+.anonymous-box {
+    display: flex;
+
+    gap: 12px;
+
+    align-items: flex-start;
+
+    padding: 18px;
+
+    background: #f8fafc;
+
+    border-radius: 12px;
+}
+
+
+.anonymous-label {
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.anonymous-box p {
+    margin: 3px 0 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   SUBMIT
+========================= */
+
+.submit-section {
+    text-align: center;
+}
+
+
+.submit-btn {
+    min-width: 220px;
+}
+
+
+.submit-section p {
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    color: #64748b;
+}
+
+
+/* =========================
+   THANK YOU
+========================= */
+
+.thank-you-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 30px;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            #dbeafe,
+            transparent 35%
+        ),
+        #f8fafc;
+}
+
+
+.thank-you-card {
+    background: white;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 25px;
+
+    padding: 60px 40px;
+
+    text-align: center;
+
+    max-width: 550px;
+
+    width: 100%;
+
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.08);
+}
+
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+
+    margin: auto auto 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    font-size: 32px;
+}
+
+
+.thank-you-card h1 {
+    font-size: 40px;
+
+    font-weight: 800;
+
+    margin-bottom: 12px;
+}
+
+
+.thank-you-card p {
+    color: #64748b;
+
+    line-height: 1.7;
+}
+
+
+.small-text {
+    font-size: 14px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+
+    .hero-title {
+        font-size: 48px;
+
+        letter-spacing: -2px;
+    }
+
+
+    .faculty-card {
+        margin-top: 40px;
+    }
+
+
+    .review-container {
+        padding: 25px 20px;
+    }
+
+
+    .review-header h1 {
+        font-size: 35px;
+    }
+
+
+    .rating-item {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+    .rating-select {
+        width: 100%;
+    }
+
+}

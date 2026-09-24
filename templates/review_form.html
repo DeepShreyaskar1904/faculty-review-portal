@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Give Feedback | Faculty Review Portal
+{% endblock %}
+
+
+{% block content %}
+
+<div class="review-page">
+
+    <div class="container py-5">
+
+
+        <div class="review-header text-center">
+
+            <div class="hero-badge">
+                <i class="fa-solid fa-star"></i>
+                Student Feedback
+            </div>
+
+            <h1>
+                Share Your Experience
+            </h1>
+
+            <p>
+                Please provide honest and constructive feedback.
+            </p>
+
+        </div>
+
+
+        <div class="review-container">
+
+
+            <form
+                method="POST"
+                id="reviewForm"
+                novalidate
+            >
+
+                {% csrf_token %}
+
+
+                <!-- Student Information -->
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+
+                        <div class="section-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Your Information
+                            </h3>
+
+                            <p>
+                                Tell us a little about yourself.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Your Name
+                            </label>
+
+                            {{ form.student_name }}
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Email Address
+                            </label>
+
+                            {{ form.student_email }}
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Course
+                            </label>
+
+                            {{ form.course }}
+
+                        </div>
+
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+                                Batch
+                            </label>
+
+                            {{ form.batch }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Rating -->
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+
+                        <div class="section-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Rate Your Experience
+                            </h3>
+
+                            <p>
+                                Rate each area from 1 to 5.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="rating-grid">
+
+
+                        <div class="rating-item">
+
+                            <div>
+
+                                <h5>
+                                    Overall Rating
+                                </h5>
+
+                                <small>
+                                    Overall teaching experience
+                                </small>
+
+                            </div>
+
+                            <div class="rating-select">
+                                {{ form.rating }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rating-item">
+
+                            <div>
+
+                                <h5>
+                                    Teaching Quality
+                                </h5>
+
+                                <small>
+                                    Clarity and quality of teaching
+                                </small>
+
+                            </div>
+
+                            <div class="rating-select">
+                                {{ form.teaching_quality }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rating-item">
+
+                            <div>
+
+                                <h5>
+                                    Communication
+                                </h5>
+
+                                <small>
+                                    Explanation and communication
+                                </small>
+
+                            </div>
+
+                            <div class="rating-select">
+                                {{ form.communication }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rating-item">
+
+                            <div>
+
+                                <h5>
+                                    Practical Knowledge
+                                </h5>
+
+                                <small>
+                                    Real-world examples and projects
+                                </small>
+
+                            </div>
+
+                            <div class="rating-select">
+                                {{ form.practical_knowledge }}
+                            </div>
+
+                        </div>
+
+
+                        <div class="rating-item">
+
+                            <div>
+
+                                <h5>
+                                    Doubt Solving
+                                </h5>
+
+                                <small>
+                                    Support when solving doubts
+                                </small>
+
+                            </div>
+
+                            <div class="rating-select">
+                                {{ form.doubt_solving }}
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Feedback -->
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+
+                        <div class="section-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Written Feedback
+                            </h3>
+
+                            <p>
+                                Tell us what you think.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <label class="form-label">
+                        Your Feedback
+                    </label>
+
+                    {{ form.feedback }}
+
+
+                    <div class="anonymous-box mt-4">
+
+                        {{ form.is_anonymous }}
+
+                        <div>
+
+                            <label
+                                for="{{ form.is_anonymous.id_for_label }}"
+                                class="anonymous-label"
+                            >
+
+                                Submit anonymously
+
+                            </label>
+
+                            <p>
+                                Your name will not be displayed
+                                publicly.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Submit -->
+
+                <div class="submit-section">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary-custom submit-btn"
+                    >
+
+                        <i class="fa-solid fa-paper-plane me-2"></i>
+
+                        Submit Feedback
+
+                    </button>
+
+                    <p>
+                        Please make sure your feedback is honest
+                        before submitting.
+                    </p>
+
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
