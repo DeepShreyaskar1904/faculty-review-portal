@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Review
+from .models import *
+
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
@@ -23,4 +24,33 @@ class ReviewAdmin(admin.ModelAdmin):
     )
     ordering = (
         '-created_at',
+    )
+
+@admin.register(FacultyProfile)
+class FacultyProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "designation",
+        "students_trained",
+        "updated_at",
+    )
+
+
+@admin.register(Education)
+class EducationAdmin(admin.ModelAdmin):
+    list_display = (
+        "degree",
+        "field_of_study",
+        "status",
+        "display_order",
+    )
+    list_filter = ("status",)
+
+
+@admin.register(FacultySkill)
+class FacultySkillAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+        "profile",
+        "display_order",
     )

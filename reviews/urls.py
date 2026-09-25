@@ -12,4 +12,7 @@ urlpatterns = [
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('reset-password/', views.reset_password, name='reset_password'),
     path('review/<int:review_id>/',views.review_detail,name='review_detail'),
+    path('export/reviews/csv/',views.export_reviews_csv,name='export_reviews_csv'),
+    path('export/reviews/excel/',views.export_reviews_excel,name='export_reviews_excel'),
+    path('manage-profile/',views.manage_profile,name='manage_profile'),
 ]

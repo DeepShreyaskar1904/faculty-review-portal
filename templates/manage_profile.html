@@ -1,0 +1,3594 @@
+{% extends "base.html" %}
+{% block title %}
+Manage Faculty Profile
+{% endblock %}
+{% block content %}
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css"
+>
+
+
+<style>
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.profile-page {
+
+    max-width: 1150px;
+
+    margin: 0 auto;
+
+    padding: 35px 20px 60px;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.profile-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 30px;
+}
+
+
+.profile-header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.header-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    border-radius: 15px;
+
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed
+    );
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    box-shadow:
+        0 10px 25px rgba(79,70,229,.20);
+}
+
+
+.profile-header h1 {
+
+    margin: 0;
+
+    font-size: 28px;
+
+    font-weight: 800;
+
+    color: #111827;
+}
+
+
+.profile-header p {
+
+    margin: 5px 0 0;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
+
+.profile-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow:
+        0 15px 40px rgba(15,23,42,.08),
+        0 0 0 1px rgba(148,163,184,.10);
+        border: 3px solid #a5b4fc;
+}
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.section {
+
+    margin-bottom: 40px;
+}
+
+
+.section:last-child {
+
+    margin-bottom: 0;
+}
+
+
+.section-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 22px;
+
+    padding-bottom: 14px;
+
+    border-bottom: 1.5px solid #cbd5e1;
+}
+
+
+.section-heading-icon {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 11px;
+
+    background: #eef2ff;
+
+    color: #4f46e5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 17px;
+}
+
+
+.section-heading h2 {
+
+    margin: 0;
+
+    font-size: 19px;
+
+    font-weight: 750;
+
+    color: #111827;
+}
+
+
+.section-heading p {
+
+    margin: 3px 0 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   FORM GRID
+   ========================================================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.form-group.full {
+
+    grid-column: 1 / -1;
+}
+
+
+.form-label {
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    color: #374151;
+
+    margin-bottom: 7px;
+}
+
+
+.required {
+
+    color: #ef4444;
+}
+
+
+.help-text {
+
+    margin-top: 6px;
+
+    font-size: 12px;
+
+    color: #6b7280;
+}
+
+
+.form-control {
+    width: 100%;
+
+    min-height: 44px;
+
+    border: 1.5px solid #94a3b8;
+
+    border-radius: 10px;
+
+    padding: 10px 13px;
+
+    font-size: 14px;
+
+    color: #111827;
+
+    background: #fff;
+
+    outline: none;
+
+    transition: .2s;
+
+    box-sizing: border-box;
+}
+
+
+textarea.form-control {
+
+    min-height: auto;
+
+    resize: vertical;
+}
+
+
+.form-control:focus {
+
+    border-color: #6366f1;
+
+    box-shadow:
+        0 0 0 3px rgba(99,102,241,.12);
+}
+
+
+/* =========================================================
+   IMAGE
+   ========================================================= */
+
+.image-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    flex-wrap: wrap;
+}
+
+
+.image-preview {
+    width: 125px;
+
+    height: 125px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    border: 3px solid #c7d2fe;
+
+    background: #f8fafc;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.image-preview img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    object-position: center center;
+}
+
+
+.image-placeholder {
+
+    color: #94a3b8;
+
+    font-size: 35px;
+}
+
+
+.image-input {
+
+    flex: 1;
+
+    min-width: 250px;
+}
+
+
+/* =========================================================
+   DYNAMIC SECTION
+   ========================================================= */
+
+.dynamic-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 20px;
+}
+
+
+.add-button {
+
+    border: none;
+
+    background: #4f46e5;
+
+    color: white;
+
+    border-radius: 10px;
+
+    padding: 10px 15px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    transition: .2s;
+}
+
+
+.add-button:hover {
+
+    background: #4338ca;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DYNAMIC ITEM
+   ========================================================= */
+
+.dynamic-item {
+    background: #f8fafc;
+
+    border: 2px solid #a5b4fc;
+
+    border-radius: 15px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    transition: .2s;
+}
+.dynamic-item:hover {
+
+    border-color: #c7d2fe;
+
+    box-shadow:
+        0 8px 20px rgba(15,23,42,.05);
+}
+
+
+.item-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1.5px solid #cbd5e1;
+}
+
+.item-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 15px;
+
+    font-weight: 750;
+
+    color: #1f2937;
+}
+
+
+.item-title i {
+
+    color: #4f46e5;
+}
+
+
+.remove-button {
+
+    border: none;
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    border-radius: 8px;
+
+    padding: 8px 11px;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+
+.remove-button:hover {
+
+    background: #fecaca;
+}
+
+
+/* =========================================================
+   SKILL
+   ========================================================= */
+
+.skill-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 130px auto;
+
+    gap: 15px;
+
+    align-items: end;
+}
+
+
+.delete-existing {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #dc2626;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    padding-bottom: 10px;
+}
+
+
+/* =========================================================
+   ERRORS
+   ========================================================= */
+
+.error-message {
+
+    margin-top: 6px;
+
+    color: #dc2626;
+
+    font-size: 12px;
+}
+
+
+.form-errors {
+
+    background: #fef2f2;
+
+    border: 1px solid #fecaca;
+
+    color: #b91c1c;
+
+    border-radius: 10px;
+
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.action-area {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    padding-top: 25px;
+
+    border-top: 1.5px solid #cbd5e1;
+
+    margin-top: 35px;
+}
+
+.btn-custom {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 12px 20px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    transition: .2s;
+}
+
+
+.btn-cancel {
+
+    background: #f1f5f9;
+
+    color: #334155;
+}
+
+
+.btn-cancel:hover {
+
+    background: #e2e8f0;
+
+    color: #1e293b;
+}
+
+
+.btn-save {
+
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #7c3aed
+    );
+
+    color: white;
+
+    box-shadow:
+        0 7px 18px rgba(79,70,229,.22);
+}
+
+
+.btn-save:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 24px rgba(79,70,229,.30);
+}
+
+
+/* =========================================================
+   IMAGE CROPPER MODAL
+========================================================= */
+
+/* IMAGE VIEWER */
+.image-viewer-modal{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:25px;background:rgba(15,23,42,.82);backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:.25s ease}
+.image-viewer-modal.active{opacity:1;visibility:visible;pointer-events:auto}
+.image-viewer-card{position:relative;max-width:min(850px,94vw);max-height:90vh;display:flex;align-items:center;justify-content:center;transform:scale(.94);transition:.25s ease}
+.image-viewer-modal.active .image-viewer-card{transform:scale(1)}
+.image-viewer-image{display:block;max-width:88vw;max-height:86vh;width:auto;height:auto;object-fit:contain;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.40);background:#fff}
+.image-viewer-close{position:absolute;top:-18px;right:-18px;width:42px;height:42px;border:0;border-radius:50%;background:#fff;color:#111827;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.2s ease;z-index:2}
+.image-viewer-close:hover{background:#fee2e2;color:#dc2626;transform:rotate(90deg)}
+#profilePreview{cursor:zoom-in}
+@media (max-width:768px){.image-viewer-modal{padding:18px}.image-viewer-image{max-width:90vw;max-height:82vh;border-radius:12px}.image-viewer-close{top:-12px;right:-12px;width:38px;height:38px}}
+
+.image-crop-modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15,23,42,.75);
+
+    backdrop-filter: blur(8px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition: .25s ease;
+}
+
+
+.image-crop-modal.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+.image-crop-card {
+
+    width: min(760px, 100%);
+
+    max-height: 94vh;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 30px 90px rgba(0,0,0,.30);
+
+    transform:
+        scale(.94)
+        translateY(20px);
+
+    transition: .25s ease;
+}
+
+
+.image-crop-modal.active
+.image-crop-card {
+
+    transform:
+        scale(1)
+        translateY(0);
+}
+
+
+/* =========================================================
+   CROPPER HEADER
+========================================================= */
+
+.image-crop-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 22px 24px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+.image-crop-header h3 {
+
+    margin: 0;
+
+    color: #111827;
+
+    font-size: 19px;
+
+    font-weight: 800;
+}
+
+
+.image-crop-header p {
+
+    margin: 5px 0 0;
+
+    color: #6b7280;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+.crop-close-btn {
+
+    width: 36px;
+
+    height: 36px;
+
+    flex-shrink: 0;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: .2s ease;
+}
+
+
+.crop-close-btn:hover {
+
+    background: #fee2e2;
+
+    color: #dc2626;
+
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   CROPPER AREA
+========================================================= */
+
+.cropper-wrapper {
+
+    width: 100%;
+
+    height: 470px;
+
+    background: #111827;
+
+    overflow: hidden;
+}
+
+
+.cropper-wrapper img {
+
+    display: block;
+
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   CROPPER CONTROLS
+========================================================= */
+
+.crop-controls {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding: 15px 20px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+.crop-control-btn {
+
+    min-width: 42px;
+
+    height: 38px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dbe1ea;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #475569;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    transition: .2s ease;
+}
+
+
+.crop-control-btn:hover {
+
+    border-color: #6366f1;
+
+    color: #4f46e5;
+
+    background: #eef2ff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CROPPER FOOTER
+========================================================= */
+
+.crop-footer {
+
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding: 16px 24px;
+
+    background: #fff;
+}
+
+
+.crop-cancel-btn,
+.crop-apply-btn {
+
+    border: 0;
+
+    border-radius: 9px;
+
+    padding: 11px 18px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+
+.crop-cancel-btn {
+
+    background: #f1f5f9;
+
+    color: #334155;
+}
+
+
+.crop-cancel-btn:hover {
+
+    background: #e2e8f0;
+}
+
+
+.crop-apply-btn {
+
+    background:
+        linear-gradient(
+            135deg,
+            #4f46e5,
+            #7c3aed
+        );
+
+    color: #fff;
+
+    box-shadow:
+        0 7px 18px rgba(79,70,229,.22);
+}
+
+
+.crop-apply-btn:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 24px rgba(79,70,229,.30);
+}
+
+
+/* =========================================================
+   CIRCULAR CROP GUIDE
+========================================================= */
+
+.cropper-view-box {
+
+    border-radius: 50%;
+}
+
+
+.cropper-face {
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .profile-page {
+
+        padding: 20px 12px 40px;
+    }
+
+
+    .profile-card {
+
+        padding: 20px;
+
+        border-width: 2px;
+    }
+
+
+    /* =========================================================
+       MOBILE PROFILE IMAGE
+       ========================================================= */
+
+    .image-area {
+
+        width: 100%;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 16px;
+
+        text-align: center;
+    }
+
+
+    .image-preview {
+
+        flex-shrink: 0;
+
+        margin: 0 auto;
+    }
+
+
+    .image-input {
+
+        width: 100%;
+
+        min-width: 0;
+
+        flex: none;
+
+        text-align: center;
+    }
+
+
+    .image-input .form-label {
+
+        display: block;
+
+        text-align: center;
+    }
+
+
+    .image-input .help-text {
+
+        text-align: center;
+    }
+
+
+    .profile-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .form-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .form-group.full {
+
+        grid-column: auto;
+    }
+
+
+    .dynamic-header {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .add-button {
+
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    .skill-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .action-area {
+
+        flex-direction: column-reverse;
+    }
+
+
+    .btn-custom {
+
+        justify-content: center;
+
+        width: 100%;
+
+        box-sizing: border-box;
+    }
+
+
+    .cropper-wrapper {
+
+        height: 55vh;
+
+        min-height: 320px;
+
+        max-height: 500px;
+    }
+
+
+    .image-crop-modal {
+
+        padding: 10px;
+    }
+
+
+    .image-crop-card {
+
+        border-radius: 16px;
+    }
+
+
+    .image-crop-header {
+
+        padding: 18px;
+    }
+
+
+    .crop-footer {
+
+        padding: 14px 18px;
+    }
+
+
+    .crop-cancel-btn,
+    .crop-apply-btn {
+
+        flex: 1;
+    }
+
+}
+
+</style>
+
+
+<div class="profile-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <div class="profile-header">
+
+        <div class="profile-header-left">
+
+            <div class="header-icon">
+
+                <i class="fa-solid fa-user-gear"></i>
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Manage Faculty Profile
+                </h1>
+
+                <p>
+                    Update the information displayed on your
+                    public faculty profile.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SUCCESS / ERROR MESSAGES
+         ===================================================== -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div
+                style="
+                    margin-bottom:20px;
+                    padding:12px 15px;
+                    border-radius:10px;
+                    background:#ecfdf5;
+                    color:#047857;
+                    border:1px solid #a7f3d0;
+                    font-size:14px;
+                "
+            >
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         MAIN FORM
+         ===================================================== -->
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        id="profileForm"
+    >
+
+        {% csrf_token %}
+
+
+        {% if form.non_field_errors %}
+
+            <div class="form-errors">
+
+                {{ form.non_field_errors }}
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="profile-card">
+
+
+            <!-- =================================================
+                 BASIC INFORMATION
+                 ================================================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div class="section-heading-icon">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Basic Information
+                        </h2>
+
+                        <p>
+                            Your name and professional identity.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.name.id_for_label }}"
+                        >
+                            Name
+                            <span class="required">*</span>
+                        </label>
+
+                        {{ form.name }}
+
+                        {% for error in form.name.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- DESIGNATION -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.designation.id_for_label }}"
+                        >
+                            Designation
+                            <span class="required">*</span>
+                        </label>
+
+                        {{ form.designation }}
+
+                        {% for error in form.designation.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- SHORT INTRO -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.short_intro.id_for_label }}"
+                        >
+                            Short Introduction
+                        </label>
+
+                        {{ form.short_intro }}
+
+                        {% for error in form.short_intro.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- ABOUT -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.about.id_for_label }}"
+                        >
+                            About
+                        </label>
+
+                        {{ form.about }}
+
+                        {% for error in form.about.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PROFILE IMAGE
+                 ================================================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div class="section-heading-icon">
+
+                        <i class="fa-solid fa-image"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Profile Image
+                        </h2>
+
+                        <p>
+                            Upload and crop your professional profile photo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="image-area">
+
+
+                    <!-- IMAGE PREVIEW -->
+
+                    <div
+                        class="image-preview"
+                        id="imagePreviewBox"
+                        {% if not profile or not profile.profile_image %}style="display:none;"{% endif %}
+                        title="Click to view image"
+                    >
+
+                        <img
+                            id="profilePreview"
+                            src="{% if profile and profile.profile_image %}{{ profile.profile_image.url }}{% endif %}"
+                            alt="{% if profile %}{{ profile.name }}{% else %}Profile Preview{% endif %}"
+                            {% if not profile or not profile.profile_image %}style="display:none;"{% endif %}
+                        >
+
+                        <i
+                            id="profilePlaceholder"
+                            class="fa-solid fa-user image-placeholder"
+                            style="display:none;"
+                        ></i>
+
+                    </div>
+
+
+                    <!-- IMAGE INPUT -->
+
+                    <div class="image-input">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.profile_image.id_for_label }}"
+                        >
+                            Choose Image
+                        </label>
+
+
+                        <!--
+                            Render the file input manually instead of
+                            {{ form.profile_image }} so Django does not show
+                            the default "Currently: ... Clear" line.
+                        -->
+                        <input
+                            type="file"
+                            name="{{ form.profile_image.html_name }}"
+                            id="{{ form.profile_image.id_for_label }}"
+                            class="form-control"
+                            accept="image/*"
+                        >
+
+
+                        <!-- IMPORTANT:
+                             This stores the final cropped image.
+                        -->
+
+                        <input
+                            type="hidden"
+                            name="cropped_image"
+                            id="croppedImage"
+                            value=""
+                        >
+
+
+                        <div class="help-text">
+
+                            Select an image and crop it before saving.
+
+                            <br>
+
+                            Recommended:
+                            JPG / PNG / WEBP
+
+                        </div>
+
+
+                        {% for error in form.profile_image.errors %}
+
+                            <div class="error-message">
+
+                                {{ error }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 CONTACT / PROFILE DETAILS
+                 ================================================= -->
+
+            <section class="section">
+
+                <div class="section-heading">
+
+                    <div class="section-heading-icon">
+
+                        <i class="fa-solid fa-address-card"></i>
+
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            Contact & Profile Details
+                        </h2>
+
+                        <p>
+                            Information shown on your public profile.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-grid">
+
+
+                    <!-- LOCATION -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.location.id_for_label }}"
+                        >
+                            Location
+                        </label>
+
+                        {{ form.location }}
+
+                        {% for error in form.location.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.email.id_for_label }}"
+                        >
+                            Email
+                        </label>
+
+                        {{ form.email }}
+
+                        {% for error in form.email.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- STUDENTS -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.students_trained.id_for_label }}"
+                        >
+                            Students Trained
+                        </label>
+
+                        {{ form.students_trained }}
+
+                        {% for error in form.students_trained.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- TEACHING APPROACH -->
+
+                    <div class="form-group">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.teaching_approach.id_for_label }}"
+                        >
+                            Teaching Approach
+                        </label>
+
+                        {{ form.teaching_approach }}
+
+                        {% for error in form.teaching_approach.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+
+                    <!-- QUOTE -->
+
+                    <div class="form-group full">
+
+                        <label
+                            class="form-label"
+                            for="{{ form.quote.id_for_label }}"
+                        >
+                            Quote
+                        </label>
+
+                        {{ form.quote }}
+
+                        {% for error in form.quote.errors %}
+
+                            <div class="error-message">
+                                {{ error }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 EDUCATION
+                 ================================================= -->
+
+            <section class="section">
+
+
+                <div class="dynamic-header">
+
+                    <div
+                        class="section-heading"
+                        style="margin:0; border:0; padding:0;"
+                    >
+
+                        <div class="section-heading-icon">
+
+                            <i class="fa-solid fa-graduation-cap"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Education
+                            </h2>
+
+                            <p>
+                                Add your educational qualifications.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="add-button"
+                        id="addEducationBtn"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Education
+
+                    </button>
+
+                </div>
+
+
+                {{ education_formset.management_form }}
+
+
+                <div id="educationContainer">
+
+
+                    {% for education_form in education_formset %}
+
+                        <div class="dynamic-item education-item">
+
+
+                            {{ education_form.id }}
+
+
+                            <div class="item-top">
+
+                                <div class="item-title">
+
+                                    <i class="fa-solid fa-book-open"></i>
+
+                                    Education
+                                    {{ forloop.counter }}
+
+                                </div>
+
+
+                                {% if education_form.instance.pk %}
+
+                                    <label class="delete-existing">
+
+                                        {{ education_form.DELETE }}
+
+                                        Delete
+
+                                    </label>
+
+                                {% else %}
+
+                                    <button
+                                        type="button"
+                                        class="remove-button remove-education"
+                                    >
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                        Remove
+
+                                    </button>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            {% if education_form.non_field_errors %}
+
+                                <div class="form-errors">
+
+                                    {{ education_form.non_field_errors }}
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="form-grid">
+
+
+                                <!-- DEGREE -->
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Degree
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    {{ education_form.degree }}
+
+                                    {% for error in education_form.degree.errors %}
+
+                                        <div class="error-message">
+
+                                            {{ error }}
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+
+                                <!-- FIELD -->
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Field of Study
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    {{ education_form.field_of_study }}
+
+                                    {% for error in education_form.field_of_study.errors %}
+
+                                        <div class="error-message">
+
+                                            {{ error }}
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+
+                                <!-- INSTITUTION -->
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Institution
+
+                                    </label>
+
+                                    {{ education_form.institution }}
+
+                                    {% for error in education_form.institution.errors %}
+
+                                        <div class="error-message">
+
+                                            {{ error }}
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+
+                                <!-- STATUS -->
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Status
+
+                                    </label>
+
+                                    {{ education_form.status }}
+
+                                    {% for error in education_form.status.errors %}
+
+                                        <div class="error-message">
+
+                                            {{ error }}
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+
+                                <!-- START YEAR -->
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Start Year
+
+                                    </label>
+
+                                    {{ education_form.start_year }}
+
+                                </div>
+
+
+                                <!-- END YEAR -->
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        End Year
+
+                                    </label>
+
+                                    {{ education_form.end_year }}
+
+                                </div>
+
+
+                                <!-- ORDER -->
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Display Order
+
+                                    </label>
+
+                                    {{ education_form.display_order }}
+
+                                    <div class="help-text">
+
+                                        1 = first,
+                                        2 = second,
+                                        etc.
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SKILLS
+                 ================================================= -->
+
+            <section class="section">
+
+
+                <div class="dynamic-header">
+
+                    <div
+                        class="section-heading"
+                        style="margin:0; border:0; padding:0;"
+                    >
+
+                        <div class="section-heading-icon">
+
+                            <i class="fa-solid fa-code"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h2>
+                                Skills & Expertise
+                            </h2>
+
+                            <p>
+                                Add technologies and skills you teach.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="add-button"
+                        id="addSkillBtn"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Add Skill
+
+                    </button>
+
+                </div>
+
+
+                {{ skill_formset.management_form }}
+
+
+                <div id="skillContainer">
+
+
+                    {% for skill_form in skill_formset %}
+
+                        <div class="dynamic-item skill-item">
+
+
+                            {{ skill_form.id }}
+
+
+                            {% if skill_form.instance.pk %}
+
+                                <div class="item-top">
+
+                                    <div class="item-title">
+
+                                        <i class="fa-solid fa-code"></i>
+
+                                        Skill
+
+                                    </div>
+
+
+                                    <label class="delete-existing">
+
+                                        {{ skill_form.DELETE }}
+
+                                        Delete
+
+                                    </label>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="skill-grid">
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Skill
+
+                                    </label>
+
+                                    {{ skill_form.name }}
+
+                                    {% for error in skill_form.name.errors %}
+
+                                        <div class="error-message">
+
+                                            {{ error }}
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label class="form-label">
+
+                                        Display Order
+
+                                    </label>
+
+                                    {{ skill_form.display_order }}
+
+                                </div>
+
+
+                                {% if not skill_form.instance.pk %}
+
+                                    <button
+                                        type="button"
+                                        class="remove-button remove-skill"
+                                    >
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </button>
+
+                                {% endif %}
+
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ACTION BUTTONS
+                 ================================================= -->
+
+            <div class="action-area">
+
+                <a
+                    href="{% url 'admin_dashboard' %}"
+                    class="btn-custom btn-cancel"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                    Cancel
+
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn-custom btn-save"
+                >
+
+                    <i class="fa-solid fa-floppy-disk"></i>
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </form>
+
+</div>
+
+
+<!-- =========================================================
+     EMPTY EDUCATION TEMPLATE
+     ========================================================= -->
+
+<div
+    id="educationEmptyForm"
+    style="display:none;"
+>
+
+    <div class="dynamic-item education-item">
+
+
+        {{ education_formset.empty_form.id }}
+
+
+        <div class="item-top">
+
+            <div class="item-title">
+
+                <i class="fa-solid fa-book-open"></i>
+
+                Education
+
+            </div>
+
+
+            <button
+                type="button"
+                class="remove-button remove-education"
+            >
+
+                <i class="fa-solid fa-trash"></i>
+
+                Remove
+
+            </button>
+
+        </div>
+
+
+        <div class="form-grid">
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Degree
+
+                    <span class="required">*</span>
+
+                </label>
+
+                {{ education_formset.empty_form.degree }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Field of Study
+
+                    <span class="required">*</span>
+
+                </label>
+
+                {{ education_formset.empty_form.field_of_study }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Institution
+
+                </label>
+
+                {{ education_formset.empty_form.institution }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Status
+
+                </label>
+
+                {{ education_formset.empty_form.status }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Start Year
+
+                </label>
+
+                {{ education_formset.empty_form.start_year }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    End Year
+
+                </label>
+
+                {{ education_formset.empty_form.end_year }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Display Order
+
+                </label>
+
+                {{ education_formset.empty_form.display_order }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     EMPTY SKILL TEMPLATE
+     ========================================================= -->
+
+<div
+    id="skillEmptyForm"
+    style="display:none;"
+>
+
+    <div class="dynamic-item skill-item">
+
+
+        {{ skill_formset.empty_form.id }}
+
+
+        <div class="skill-grid">
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Skill
+
+                </label>
+
+                {{ skill_formset.empty_form.name }}
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+
+                    Display Order
+
+                </label>
+
+                {{ skill_formset.empty_form.display_order }}
+
+            </div>
+
+
+            <button
+                type="button"
+                class="remove-button remove-skill"
+            >
+
+                <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     IMAGE VIEWER MODAL
+========================================================= -->
+
+<div
+    class="image-viewer-modal"
+    id="imageViewerModal"
+    aria-hidden="true"
+>
+
+    <div class="image-viewer-card">
+
+        <button
+            type="button"
+            class="image-viewer-close"
+            id="closeImageViewer"
+            aria-label="Close image preview"
+        >
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <img
+            id="imageViewerImage"
+            class="image-viewer-image"
+            src=""
+            alt="Profile Image"
+        >
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     IMAGE CROP MODAL
+========================================================= -->
+
+<div
+    id="imageCropModal"
+    class="image-crop-modal"
+>
+
+    <div class="image-crop-card">
+
+
+        <!-- HEADER -->
+
+        <div class="image-crop-header">
+
+            <div>
+
+                <h3>
+                    Crop Profile Image
+                </h3>
+
+                <p>
+                    Drag the image and zoom to position your face
+                    correctly inside the circle.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="closeCropModal"
+                class="crop-close-btn"
+            >
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- CROPPER -->
+
+        <div class="cropper-wrapper">
+
+            <img
+                id="cropperImage"
+                src=""
+                alt="Crop Profile Image"
+            >
+
+        </div>
+
+
+        <!-- CONTROLS -->
+
+        <div class="crop-controls">
+
+            <button
+                type="button"
+                id="zoomOutBtn"
+                class="crop-control-btn"
+                title="Zoom Out"
+            >
+
+                <i class="fa-solid fa-minus"></i>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="zoomInBtn"
+                class="crop-control-btn"
+                title="Zoom In"
+            >
+
+                <i class="fa-solid fa-plus"></i>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="rotateLeftBtn"
+                class="crop-control-btn"
+                title="Rotate Left"
+            >
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="rotateRightBtn"
+                class="crop-control-btn"
+                title="Rotate Right"
+            >
+
+                <i class="fa-solid fa-rotate-right"></i>
+
+            </button>
+
+
+            <button
+                type="button"
+                id="resetCropBtn"
+                class="crop-control-btn"
+            >
+
+                <i class="fa-solid fa-arrows-rotate"></i>
+
+                Reset
+
+            </button>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <div class="crop-footer">
+
+            <button
+                type="button"
+                id="cancelCropBtn"
+                class="crop-cancel-btn"
+            >
+
+                Cancel
+
+            </button>
+
+
+            <button
+                type="button"
+                id="applyCropBtn"
+                class="crop-apply-btn"
+            >
+
+                <i class="fa-solid fa-check"></i>
+
+                Apply Crop
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CROPPER.JS
+========================================================= -->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"
+></script>
+
+
+<script>
+
+/* =========================================================
+   PROFILE IMAGE CROPPER
+========================================================= */
+
+let profileCropper = null;
+
+let imageNeedsCrop = false;
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const imageInput =
+    document.getElementById(
+        "{{ form.profile_image.id_for_label }}"
+    );
+
+
+const profilePreview =
+    document.getElementById(
+        "profilePreview"
+    );
+
+
+const profilePlaceholder =
+    document.getElementById(
+        "profilePlaceholder"
+    );
+
+
+const imagePreviewBox =
+    document.getElementById(
+        "imagePreviewBox"
+    );
+
+const imageViewerModal = document.getElementById("imageViewerModal");
+const imageViewerImage = document.getElementById("imageViewerImage");
+const closeImageViewerBtn = document.getElementById("closeImageViewer");
+
+
+const croppedImageInput =
+    document.getElementById(
+        "croppedImage"
+    );
+
+
+const cropModal =
+    document.getElementById(
+        "imageCropModal"
+    );
+
+
+const cropperImage =
+    document.getElementById(
+        "cropperImage"
+    );
+
+
+const closeCropModalBtn =
+    document.getElementById(
+        "closeCropModal"
+    );
+
+
+const cancelCropBtn =
+    document.getElementById(
+        "cancelCropBtn"
+    );
+
+
+const applyCropBtn =
+    document.getElementById(
+        "applyCropBtn"
+    );
+
+
+const zoomInBtn =
+    document.getElementById(
+        "zoomInBtn"
+    );
+
+
+const zoomOutBtn =
+    document.getElementById(
+        "zoomOutBtn"
+    );
+
+
+const rotateLeftBtn =
+    document.getElementById(
+        "rotateLeftBtn"
+    );
+
+
+const rotateRightBtn =
+    document.getElementById(
+        "rotateRightBtn"
+    );
+
+
+const resetCropBtn =
+    document.getElementById(
+        "resetCropBtn"
+    );
+
+
+const profileForm =
+    document.getElementById(
+        "profileForm"
+    );
+
+
+function openImageViewer() {
+    if (!profilePreview || !profilePreview.src || profilePreview.style.display === "none") return;
+    imageViewerImage.src = profilePreview.src;
+    imageViewerModal.classList.add("active");
+    imageViewerModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+}
+
+function closeImageViewer() {
+    imageViewerModal.classList.remove("active");
+    imageViewerModal.setAttribute("aria-hidden", "true");
+    imageViewerImage.src = "";
+    if (!cropModal.classList.contains("active")) document.body.style.overflow = "";
+}
+
+if (profilePreview) profilePreview.addEventListener("click", openImageViewer);
+if (closeImageViewerBtn) closeImageViewerBtn.addEventListener("click", closeImageViewer);
+if (imageViewerModal) imageViewerModal.addEventListener("click", function(event){ if(event.target===imageViewerModal) closeImageViewer(); });
+document.addEventListener("keydown", function(event){ if(event.key==="Escape" && imageViewerModal.classList.contains("active")) closeImageViewer(); });
+
+/* =========================================================
+   OPEN CROP MODAL
+========================================================= */
+
+function openCropModal(file) {
+
+    if (!file) {
+
+        return;
+
+    }
+
+
+    /*
+     * Validate image.
+     */
+
+    if (!file.type.startsWith("image/")) {
+
+        alert(
+            "Please select a valid image file."
+        );
+
+        if (imageInput) {
+
+            imageInput.value = "";
+
+        }
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload =
+        function(event) {
+
+            cropperImage.src =
+                event.target.result;
+
+
+            cropModal.classList.add(
+                "active"
+            );
+
+
+            document.body.style.overflow =
+                "hidden";
+
+
+            /*
+             * Wait for image to load.
+             */
+
+            cropperImage.onload =
+                function() {
+
+                    if (profileCropper) {
+
+                        profileCropper.destroy();
+
+                        profileCropper = null;
+
+                    }
+
+
+                    profileCropper =
+                        new Cropper(
+                            cropperImage,
+                            {
+
+                                /*
+                                 * Perfect square crop
+                                 */
+
+                                aspectRatio: 1,
+
+                                /*
+                                 * Prevent empty areas
+                                 */
+
+                                viewMode: 1,
+
+                                /*
+                                 * User can drag image
+                                 */
+
+                                dragMode: "move",
+
+                                /*
+                                 * Initial crop size
+                                 */
+
+                                autoCropArea: 0.82,
+
+                                responsive: true,
+
+                                restore: true,
+
+                                guides: false,
+
+                                center: true,
+
+                                highlight: false,
+
+                                background: true,
+
+                                movable: true,
+
+                                zoomable: true,
+
+                                rotatable: true,
+
+                                scalable: false,
+
+                                cropBoxMovable: false,
+
+                                cropBoxResizable: false,
+
+                                toggleDragModeOnDblclick:
+                                    false
+
+                            }
+                        );
+
+                };
+
+        };
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+   CLOSE CROP MODAL
+========================================================= */
+
+function closeCropModal() {
+
+    cropModal.classList.remove(
+        "active"
+    );
+
+
+    document.body.style.overflow =
+        "";
+
+
+    if (profileCropper) {
+
+        profileCropper.destroy();
+
+        profileCropper = null;
+
+    }
+
+
+    cropperImage.src = "";
+
+}
+
+
+/* =========================================================
+   CANCEL CROP
+========================================================= */
+
+function cancelCrop() {
+
+    /*
+     * Remove selected original file.
+     */
+
+    if (imageInput) {
+
+        imageInput.value = "";
+
+    }
+
+
+    /*
+     * Do not change current preview.
+     */
+
+    croppedImageInput.value = "";
+
+    imageNeedsCrop = false;
+
+
+    closeCropModal();
+
+}
+
+
+/* =========================================================
+   IMAGE SELECT
+========================================================= */
+
+if (imageInput) {
+
+    imageInput.addEventListener(
+        "change",
+        function(event) {
+
+            const file =
+                event.target.files[0];
+
+
+            if (!file) {
+
+                return;
+
+            }
+
+
+            /*
+             * New image now needs cropping.
+             */
+
+            imageNeedsCrop = true;
+
+
+            /*
+             * Remove any previous crop.
+             */
+
+            croppedImageInput.value = "";
+
+
+            /*
+             * Open cropper.
+             */
+
+            openCropModal(file);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ZOOM IN
+========================================================= */
+
+if (zoomInBtn) {
+
+    zoomInBtn.addEventListener(
+        "click",
+        function() {
+
+            if (profileCropper) {
+
+                profileCropper.zoom(
+                    0.1
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ZOOM OUT
+========================================================= */
+
+if (zoomOutBtn) {
+
+    zoomOutBtn.addEventListener(
+        "click",
+        function() {
+
+            if (profileCropper) {
+
+                profileCropper.zoom(
+                    -0.1
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ROTATE LEFT
+========================================================= */
+
+if (rotateLeftBtn) {
+
+    rotateLeftBtn.addEventListener(
+        "click",
+        function() {
+
+            if (profileCropper) {
+
+                profileCropper.rotate(
+                    -90
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ROTATE RIGHT
+========================================================= */
+
+if (rotateRightBtn) {
+
+    rotateRightBtn.addEventListener(
+        "click",
+        function() {
+
+            if (profileCropper) {
+
+                profileCropper.rotate(
+                    90
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+if (resetCropBtn) {
+
+    resetCropBtn.addEventListener(
+        "click",
+        function() {
+
+            if (profileCropper) {
+
+                profileCropper.reset();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   APPLY CROP
+========================================================= */
+
+if (applyCropBtn) {
+
+    applyCropBtn.addEventListener(
+        "click",
+        function() {
+
+            if (!profileCropper) {
+
+                return;
+
+            }
+
+
+            /*
+             * Generate 600 x 600 final image.
+             */
+
+            const canvas =
+                profileCropper.getCroppedCanvas(
+                    {
+
+                        width: 600,
+
+                        height: 600,
+
+                        imageSmoothingEnabled:
+                            true,
+
+                        imageSmoothingQuality:
+                            "high"
+
+                    }
+                );
+
+
+            if (!canvas) {
+
+                alert(
+                    "Unable to crop this image. Please try again."
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Convert to JPEG.
+             */
+
+            const croppedData =
+                canvas.toDataURL(
+                    "image/jpeg",
+                    0.92
+                );
+
+
+            /*
+             * Put final cropped image
+             * into hidden input.
+             */
+
+            croppedImageInput.value =
+                croppedData;
+
+
+            /*
+             * Show cropped preview.
+             */
+
+            if (profilePreview) {
+
+                profilePreview.src =
+                    croppedData;
+
+                profilePreview.style.display =
+                    "block";
+
+            }
+
+
+            if (imagePreviewBox) {
+
+                imagePreviewBox.style.display =
+                    "flex";
+
+            }
+
+
+            if (profilePlaceholder) {
+
+                profilePlaceholder.style.display =
+                    "none";
+
+            }
+
+
+            /*
+             * Cropping completed.
+             */
+
+            imageNeedsCrop = false;
+
+
+            /*
+             * Close popup.
+             */
+
+            closeCropModal();
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CANCEL / CLOSE
+========================================================= */
+
+if (cancelCropBtn) {
+
+    cancelCropBtn.addEventListener(
+        "click",
+        cancelCrop
+    );
+
+}
+
+
+if (closeCropModalBtn) {
+
+    closeCropModalBtn.addEventListener(
+        "click",
+        cancelCrop
+    );
+
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+if (cropModal) {
+
+    cropModal.addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                cropModal
+            ) {
+
+                cancelCrop();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ESC KEY
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Escape"
+            &&
+            cropModal.classList.contains(
+                "active"
+            )
+        ) {
+
+            cancelCrop();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   FORM SUBMIT
+========================================================= */
+
+if (profileForm) {
+
+    profileForm.addEventListener(
+        "submit",
+        function(event) {
+
+            /*
+             * New image selected but crop
+             * was not applied.
+             */
+
+            if (
+                imageNeedsCrop
+                &&
+                imageInput
+                &&
+                imageInput.files.length > 0
+            ) {
+
+                event.preventDefault();
+
+
+                alert(
+                    "Please crop the selected image before saving your profile."
+                );
+
+
+                openCropModal(
+                    imageInput.files[0]
+                );
+
+
+                return;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   EDUCATION
+========================================================= */
+
+const educationContainer =
+    document.getElementById(
+        "educationContainer"
+    );
+
+
+const addEducationBtn =
+    document.getElementById(
+        "addEducationBtn"
+    );
+
+
+const educationTotalForms =
+    document.getElementById(
+        "id_education-TOTAL_FORMS"
+    );
+
+
+const educationEmptyForm =
+    document.getElementById(
+        "educationEmptyForm"
+    );
+
+
+/* =========================================================
+   ADD EDUCATION
+========================================================= */
+
+if (
+    addEducationBtn &&
+    educationTotalForms &&
+    educationEmptyForm
+) {
+
+    addEducationBtn.addEventListener(
+        "click",
+        function() {
+
+            const index =
+                parseInt(
+                    educationTotalForms.value
+                );
+
+
+            let html =
+                educationEmptyForm.innerHTML;
+
+
+            html =
+                html.replace(
+                    /__prefix__/g,
+                    index
+                );
+
+
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            wrapper.innerHTML =
+                html;
+
+
+            educationContainer.appendChild(
+                wrapper.firstElementChild
+            );
+
+
+            educationTotalForms.value =
+                index + 1;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   REMOVE EDUCATION
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                ".remove-education"
+            );
+
+
+        if (!button) {
+
+            return;
+
+        }
+
+
+        const item =
+            button.closest(
+                ".education-item"
+            );
+
+
+        if (item) {
+
+            item.remove();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SKILLS
+========================================================= */
+
+const skillContainer =
+    document.getElementById(
+        "skillContainer"
+    );
+
+
+const addSkillBtn =
+    document.getElementById(
+        "addSkillBtn"
+    );
+
+
+const skillTotalForms =
+    document.getElementById(
+        "id_skill-TOTAL_FORMS"
+    );
+
+
+const skillEmptyForm =
+    document.getElementById(
+        "skillEmptyForm"
+    );
+
+
+/* =========================================================
+   ADD SKILL
+========================================================= */
+
+if (
+    addSkillBtn &&
+    skillTotalForms &&
+    skillEmptyForm
+) {
+
+    addSkillBtn.addEventListener(
+        "click",
+        function() {
+
+            const index =
+                parseInt(
+                    skillTotalForms.value
+                );
+
+
+            let html =
+                skillEmptyForm.innerHTML;
+
+
+            html =
+                html.replace(
+                    /__prefix__/g,
+                    index
+                );
+
+
+            const wrapper =
+                document.createElement(
+                    "div"
+                );
+
+
+            wrapper.innerHTML =
+                html;
+
+
+            skillContainer.appendChild(
+                wrapper.firstElementChild
+            );
+
+
+            skillTotalForms.value =
+                index + 1;
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   REMOVE SKILL
+========================================================= */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const button =
+            event.target.closest(
+                ".remove-skill"
+            );
+
+
+        if (!button) {
+
+            return;
+
+        }
+
+
+        const item =
+            button.closest(
+                ".skill-item"
+            );
+
+
+        if (item) {
+
+            item.remove();
+
+        }
+
+    }
+);
+
+</script>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            {% if message.tags == 'success' %}
+
+                Swal.fire({
+                    icon: "success",
+                    title: "Success",
+                    text: "{{ message|escapejs }}",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#6366f1",
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                }).then((result) => {
+
+                    if (result.isConfirmed) {
+
+                        window.location.href =
+                            "{% url 'admin_dashboard' %}";
+
+                    }
+
+                });
+
+            {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+
+});
+
+</script>
+{% endblock %}
+

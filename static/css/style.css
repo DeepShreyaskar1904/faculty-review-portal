@@ -1148,5 +1148,13 @@ body {
     .review-detail-card {
         padding: 14px;
     }
+/* ================================
+   CARD BORDER VISIBILITY
+================================ */
 
+.stat-card,
+.dashboard-card,
+.reviews-card {
+    border: 2px solid #a5b4fc;
+}
 }
