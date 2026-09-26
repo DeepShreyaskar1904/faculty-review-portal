@@ -612,6 +612,258 @@ Admin Dashboard | Faculty Review Portal
 
     }
 
+
+/* =========================================================
+   DARK MODE ONLY
+   ---------------------------------------------------------
+   Light theme above is intentionally unchanged.
+   ========================================================= */
+
+html[data-theme="dark"] body {
+    background: #0f172a;
+}
+
+html[data-theme="dark"] .dashboard-wrapper {
+    background: #0f172a;
+}
+
+html[data-theme="dark"] .dashboard-title,
+html[data-theme="dark"] .card-title,
+html[data-theme="dark"] .stat-value,
+html[data-theme="dark"] .student-name,
+html[data-theme="dark"] .detail-title,
+html[data-theme="dark"] .detail-value,
+html[data-theme="dark"] .results-info strong {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .dashboard-subtitle,
+html[data-theme="dark"] .stat-label,
+html[data-theme="dark"] .results-info,
+html[data-theme="dark"] .filter-label,
+html[data-theme="dark"] .student-email,
+html[data-theme="dark"] .empty-state,
+html[data-theme="dark"] .review-detail-card label,
+html[data-theme="dark"] .rating-item span {
+    color: #94a3b8;
+}
+
+/* Keep the same card dimensions, radius and 2px border. */
+html[data-theme="dark"] .stat-card,
+html[data-theme="dark"] .dashboard-card,
+html[data-theme="dark"] .reviews-card {
+    background: #1e293b;
+    border-color: #475569;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.28);
+}
+
+html[data-theme="dark"] .stat-card:hover {
+    box-shadow: 0 16px 34px rgba(0,0,0,0.38);
+}
+
+html[data-theme="dark"] .review-filter-form {
+    background: #172033;
+    border-color: #475569;
+}
+
+html[data-theme="dark"] .filter-input {
+    background: #0f172a;
+    color: #f8fafc;
+    border-color: #475569;
+}
+
+html[data-theme="dark"] .filter-input::placeholder {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .filter-input:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 3px rgba(96,165,250,0.14);
+}
+
+html[data-theme="dark"] .clear-btn {
+    background: #0f172a;
+    border-color: #475569;
+    color: #cbd5e1;
+}
+
+html[data-theme="dark"] .clear-btn:hover {
+    background: #1e293b;
+    color: #f87171;
+}
+
+/* Table keeps the exact original width/min-width and spacing. */
+html[data-theme="dark"] .table {
+    color: #e2e8f0;
+    border-color: #475569;
+}
+
+html[data-theme="dark"] .table thead th {
+    background: #172033;
+    color: #cbd5e1;
+    border-bottom-color: #475569;
+}
+
+html[data-theme="dark"] .table tbody td {
+    color: #e2e8f0;
+    border-bottom-color: #334155;
+}
+
+html[data-theme="dark"] .table tbody tr:hover {
+    background: #243044;
+}
+
+html[data-theme="dark"] .sentiment-positive {
+    background: #123b2c;
+    color: #6ee7b7;
+}
+
+html[data-theme="dark"] .sentiment-neutral {
+    background: #334155;
+    color: #cbd5e1;
+}
+
+html[data-theme="dark"] .sentiment-negative {
+    background: #451b25;
+    color: #fda4af;
+}
+
+html[data-theme="dark"] .pagination .page-link {
+    background: #1e293b;
+    border-color: #475569;
+    color: #93c5fd;
+}
+
+html[data-theme="dark"] .pagination .page-link:hover {
+    background: #243044;
+}
+
+html[data-theme="dark"] .pagination .page-item.disabled .page-link {
+    color: #64748b;
+    background: #172033;
+}
+
+html[data-theme="dark"] .review-detail-card {
+    background: #172033;
+    border-color: #475569;
+}
+
+html[data-theme="dark"] .rating-item {
+    background: #1e293b;
+    border-color: #475569;
+}
+
+html[data-theme="dark"] .rating-item strong {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .feedback-full {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-left-color: #8b5cf6;
+}
+
+html[data-theme="dark"] .view-review-btn {
+    background: #172d4d;
+    color: #93c5fd;
+}
+
+html[data-theme="dark"] .view-review-btn:hover {
+    background: #2563eb;
+    color: #fff;
+}
+
+/* Dark theme: keep the original light icon backgrounds, but make the
+   icon glyphs darker for better contrast with the dark dashboard. */
+html[data-theme="dark"] .icon-blue { color: #1e3a8a; }
+html[data-theme="dark"] .icon-purple { color: #4c1d95; }
+html[data-theme="dark"] .icon-yellow { color: #92400e; }
+html[data-theme="dark"] .icon-green { color: #065f46; }
+html[data-theme="dark"] .icon-gray { color: #334155; }
+html[data-theme="dark"] .icon-red { color: #991b1b; }
+
+/* Header controls: same position/order, only theme-aware colors. */
+.dashboard-header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.dashboard-manage-profile {
+    text-decoration: none;
+    background: #eef2ff;
+    color: #4338ca;
+    padding: 11px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dashboard-theme-toggle {
+    border: 1px solid #d4dbe5;
+    background: #fff;
+    color: #172033;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    cursor: pointer;
+    min-height: 42px;
+}
+
+html[data-theme="dark"] .dashboard-manage-profile {
+    background: #243b67;
+    color: #dbeafe;
+}
+
+html[data-theme="dark"] .dashboard-theme-toggle {
+    background: #1e293b;
+    color: #f8fafc;
+    border-color: #475569;
+}
+
+html[data-theme="dark"] .logout-btn {
+    background: #1e293b;
+    color: #f87171;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+
+html[data-theme="dark"] .logout-btn:hover {
+    background: #dc3545;
+    color: #fff;
+}
+
+/* Hide ONLY the old global floating toggle on this dashboard. */
+body:has(.dashboard-theme-toggle) #themeToggleWrapper {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+@media (max-width: 768px) {
+    .dashboard-header-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-theme-toggle {
+        min-height: 42px;
+    }
+}
+
+
+/* Mobile rating chart: horizontal bars are easier to read on narrow screens. */
+@media (max-width: 768px) {
+    .dashboard-card .chart-container {
+        height: 250px;
+    }
+}
 </style>
 
 
@@ -645,23 +897,23 @@ Admin Dashboard | Faculty Review Portal
         </div>
 
 
-        <div style="display: flex; gap: 12px; align-items: center;">
+        <div class="dashboard-header-actions">
 
     <a href="{% url 'manage_profile' %}"
-       style="
-           text-decoration: none;
-           background: #eef2ff;
-           color: #4338ca;
-           padding: 11px 18px;
-           border-radius: 10px;
-           font-weight: 600;
-           display: inline-flex;
-           align-items: center;
-           gap: 8px;
-       ">
+       class="dashboard-manage-profile">
         <i class="fa-solid fa-user-pen"></i>
         Manage Profile
     </a>
+
+    <button
+        type="button"
+        id="dashboardThemeToggle"
+        class="dashboard-theme-toggle"
+        aria-label="Switch to dark mode"
+        title="Switch to dark mode">
+        <i id="dashboardThemeIcon" class="fa-solid fa-moon"></i>
+        <span id="dashboardThemeText">Dark</span>
+    </button>
 
     <a href="{% url 'admin_logout' %}"
        class="logout-btn">
@@ -2048,164 +2300,228 @@ Admin Dashboard | Faculty Review Portal
 <!-- ==================================================
      CHART.JS
 ================================================== -->
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-
 <script>
+/* =========================================================
+   DASHBOARD CHART CONTROLLER
+   Theme changes recreate charts instead of calling
+   chart.update(), preventing Chart.js label recursion.
+========================================================= */
+document.addEventListener("DOMContentLoaded", function () {
+    const ratingCanvas = document.getElementById("ratingChart");
+    const sentimentCanvas = document.getElementById("sentimentChart");
+    const themeToggle = document.getElementById("dashboardThemeToggle");
+    const themeIcon = document.getElementById("dashboardThemeIcon");
+    const themeText = document.getElementById("dashboardThemeText");
 
-    /* ==================================================
-       RATING CHART
-    ================================================== */
+    const ratingLabels = ["1 Star", "2 Stars", "3 Stars", "4 Stars", "5 Stars"];
+    const ratingData = [
+        {{ rating_counts.0 }},
+        {{ rating_counts.1 }},
+        {{ rating_counts.2 }},
+        {{ rating_counts.3 }},
+        {{ rating_counts.4 }}
+    ];
 
-    const ratingCtx =
-        document.getElementById('ratingChart');
+    const sentimentData = [
+        {{ positive_count }},
+        {{ neutral_count }},
+        {{ negative_count }}
+    ];
 
+    let ratingChartInstance = null;
+    let sentimentChartInstance = null;
+    let lastMobileState = window.innerWidth <= 768;
 
-    new Chart(
-        ratingCtx,
-        {
+    function getTheme() {
+        return document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    }
 
-            type: 'bar',
+    function updateThemeButton(theme) {
+        if (!themeToggle || !themeIcon || !themeText) return;
+        if (theme === "dark") {
+            themeIcon.className = "fa-solid fa-sun";
+            themeText.textContent = "Light";
+            themeToggle.setAttribute("aria-label", "Switch to light mode");
+            themeToggle.setAttribute("title", "Switch to light mode");
+        } else {
+            themeIcon.className = "fa-solid fa-moon";
+            themeText.textContent = "Dark";
+            themeToggle.setAttribute("aria-label", "Switch to dark mode");
+            themeToggle.setAttribute("title", "Switch to dark mode");
+        }
+    }
 
-            data: {
+    function destroyCharts() {
+        if (ratingChartInstance) {
+            ratingChartInstance.destroy();
+            ratingChartInstance = null;
+        }
+        if (sentimentChartInstance) {
+            sentimentChartInstance.destroy();
+            sentimentChartInstance = null;
+        }
+    }
 
-                labels: [
-                    '1 Star',
-                    '2 Stars',
-                    '3 Stars',
-                    '4 Stars',
-                    '5 Stars'
-                ],
+    function renderCharts() {
+        if (typeof Chart === "undefined") return;
 
-                datasets: [{
+        const theme = getTheme();
+        const isMobile = window.innerWidth <= 768;
+        const dark = theme === "dark";
 
-                    label: 'Number of Reviews',
+        const ratingBg = "#2f6f9f";
+        const ratingBorder = "#3f86ba";
+        const textColor = "#94a3b8";
+        const gridColor = "rgba(71,85,105,0.35)";
+        const borderColor = "#475569";
 
-                    data: [
+        destroyCharts();
 
-                        {{ rating_counts.0 }},
-
-                        {{ rating_counts.1 }},
-
-                        {{ rating_counts.2 }},
-
-                        {{ rating_counts.3 }},
-
-                        {{ rating_counts.4 }}
-
-                    ],
-
-                    borderWidth: 1,
-
-                    borderRadius: 8
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                plugins: {
-
-                    legend: {
-
-                        display: false
-
-                    }
-
+        if (ratingCanvas) {
+            ratingChartInstance = new Chart(ratingCanvas, {
+                type: "bar",
+                data: {
+                    labels: ratingLabels,
+                    datasets: [{
+                        label: "Number of Reviews",
+                        data: ratingData,
+                        borderWidth: 1,
+                        borderRadius: 8,
+                        barThickness: isMobile ? 24 : undefined,
+                        maxBarThickness: isMobile ? 30 : 70,
+                        ...(dark ? {
+                            backgroundColor: ratingBg,
+                            borderColor: ratingBorder
+                        } : {})
+                    }]
                 },
-
-                scales: {
-
-                    y: {
-
-                        beginAtZero: true,
-
-                        ticks: {
-
-                            precision: 0
-
+                options: {
+                    indexAxis: isMobile ? "y" : "x",
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: isMobile ? {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0,
+                                stepSize: 1,
+                                ...(dark ? { color: textColor } : {})
+                            },
+                            ...(dark ? {
+                                grid: { color: gridColor },
+                                border: { color: borderColor }
+                            } : {})
+                        },
+                        y: {
+                            ticks: {
+                                autoSkip: false,
+                                font: { size: 11 },
+                                ...(dark ? { color: textColor } : {})
+                            },
+                            ...(dark ? {
+                                grid: { color: gridColor },
+                                border: { color: borderColor }
+                            } : {})
                         }
-
+                    } : {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0,
+                                ...(dark ? { color: textColor } : {})
+                            },
+                            ...(dark ? {
+                                grid: { color: gridColor },
+                                border: { color: borderColor }
+                            } : {})
+                        },
+                        x: dark ? {
+                            ticks: { color: textColor },
+                            grid: { color: gridColor },
+                            border: { color: borderColor }
+                        } : {}
                     }
-
                 }
-
-            }
-
-        }
-    );
-
-
-
-    /* ==================================================
-       SENTIMENT CHART
-    ================================================== */
-
-    const sentimentCtx =
-        document.getElementById('sentimentChart');
-
-
-    new Chart(
-        sentimentCtx,
-        {
-
-            type: 'doughnut',
-
-            data: {
-
-                labels: [
-                    'Positive',
-                    'Neutral',
-                    'Negative'
-                ],
-
-                datasets: [{
-
-                    data: [
-
-                        {{ positive_count }},
-
-                        {{ neutral_count }},
-
-                        {{ negative_count }}
-
-                    ],
-
-                    borderWidth: 3
-
-                }]
-
-            },
-
-            options: {
-
-                responsive: true,
-
-                maintainAspectRatio: false,
-
-                cutout: '65%',
-
-                plugins: {
-
-                    legend: {
-
-                        position: 'bottom'
-
-                    }
-
-                }
-
-            }
-
+            });
         }
 
-    );
+        if (sentimentCanvas) {
+            sentimentChartInstance = new Chart(sentimentCanvas, {
+                type: "doughnut",
+                data: {
+                    labels: ["Positive", "Neutral", "Negative"],
+                    datasets: [{
+                        data: sentimentData,
+                        borderWidth: 3,
+                        ...(dark ? {
+                            backgroundColor: ["#36a4df", "#ff5f7d", "#ff9d42"],
+                            borderColor: "#1e293b"
+                        } : {})
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: "65%",
+                    plugins: {
+                        legend: {
+                            position: "bottom",
+                            ...(dark ? { labels: { color: textColor } } : {})
+                        }
+                    }
+                }
+            });
+        }
+
+        lastMobileState = isMobile;
+    }
+
+    // Backward-compatible hook for any older dashboard code.
+    // Chart rendering is handled only by this page script; the global
+    // theme controller must never mutate Chart.js instances.
+    window.updateDashboardCharts = renderCharts;
+
+    updateThemeButton(getTheme());
+    renderCharts();
+
+    if (themeToggle) {
+        themeToggle.addEventListener("click", function () {
+            const nextTheme = getTheme() === "dark" ? "light" : "dark";
+
+            if (typeof window.applyTheme === "function") {
+                window.applyTheme(nextTheme);
+            } else {
+                document.documentElement.setAttribute("data-theme", nextTheme);
+                localStorage.setItem("portal-theme", nextTheme);
+                window.dispatchEvent(new CustomEvent("portal-theme-change", {
+                    detail: { theme: nextTheme }
+                }));
+            }
+            updateThemeButton(nextTheme);
+        });
+    }
+
+    window.addEventListener("portal-theme-change", function (event) {
+        const theme = event.detail && event.detail.theme ? event.detail.theme : getTheme();
+        updateThemeButton(theme);
+        renderCharts();
+    });
+
+    let resizeTimer;
+    window.addEventListener("resize", function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function () {
+            const mobileNow = window.innerWidth <= 768;
+            if (mobileNow !== lastMobileState) renderCharts();
+        }, 150);
+    });
+});
 </script>
 
 
@@ -2402,5 +2718,3 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 {% endblock %}
-
-

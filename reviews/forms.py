@@ -322,7 +322,7 @@ EducationFormSet = inlineformset_factory(
     FacultyProfile,
     Education,
     form=EducationForm,
-    extra=1,
+    extra=0,
     can_delete=True
 )
 
@@ -335,6 +335,6 @@ SkillFormSet = inlineformset_factory(
     FacultyProfile,
     FacultySkill,
     form=FacultySkillForm,
-    extra=1,
+    extra=0,
     can_delete=True
 )

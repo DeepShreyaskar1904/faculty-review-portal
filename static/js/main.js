@@ -1,408 +1,337 @@
-// ==================================================
-// STUDENT REVIEW FORM CONFIRMATION
-// ==================================================
+console.log("✅ FIXED MAIN.JS LOADED");
 
-document.addEventListener("DOMContentLoaded", function () {
+(function () {
+    "use strict";
 
-    const form = document.getElementById("reviewForm");
+    // ==================================================
+    // STUDENT REVIEW FORM CONFIRMATION
+    // ==================================================
 
-    if (form) {
+    document.addEventListener("DOMContentLoaded", function () {
 
-        form.addEventListener("submit", function (event) {
+        const form = document.getElementById("reviewForm");
 
-            event.preventDefault();
+        if (form) {
 
-            Swal.fire({
+            form.addEventListener("submit", function (event) {
 
-                title: "Submit Feedback?",
+                event.preventDefault();
 
-                text: "Please make sure your feedback is honest before submitting.",
-
-                icon: "question",
-
-                showCancelButton: true,
-
-                confirmButtonText: "Yes, Submit",
-
-                cancelButtonText: "Review Again",
-
-                reverseButtons: true
-
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
+                if (typeof Swal === "undefined") {
                     form.submit();
-
+                    return;
                 }
+
+                Swal.fire({
+                    title: "Submit Feedback?",
+                    text: "Please make sure your feedback is honest before submitting.",
+                    icon: "question",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, Submit",
+                    cancelButtonText: "Review Again",
+                    reverseButtons: true,
+                    customClass: {
+                        popup: "portal-swal-popup",
+                        confirmButton: "portal-swal-confirm"
+                    }
+                }).then(function (result) {
+
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+
+                });
 
             });
 
-        });
-
-    }
+        }
 
 
-    // ==================================================
-    // ADMIN PASSWORD TOGGLE
-    // ==================================================
+        // ==================================================
+        // ADMIN PASSWORD TOGGLE
+        // ==================================================
 
-    const togglePassword =
-        document.getElementById("togglePassword");
+        const togglePassword =
+            document.getElementById("togglePassword");
 
-    const passwordInput =
-        document.getElementById("password");
+        const passwordInput =
+            document.getElementById("password");
 
+        if (togglePassword && passwordInput) {
 
-    if (togglePassword && passwordInput) {
-
-        togglePassword.addEventListener(
-            "click",
-            function () {
-
-                const isPassword =
-                    passwordInput.getAttribute("type")
-                    === "password";
-
-
-                passwordInput.setAttribute(
-                    "type",
-                    isPassword ? "text" : "password"
-                );
-
-
-                const icon =
-                    this.querySelector("i");
-
-
-                if (icon) {
-
-                    if (isPassword) {
-
-                        icon.classList.remove(
-                            "fa-eye"
-                        );
-
-                        icon.classList.add(
-                            "fa-eye-slash"
-                        );
-
-                    } else {
-
-                        icon.classList.remove(
-                            "fa-eye-slash"
-                        );
-
-                        icon.classList.add(
-                            "fa-eye"
-                        );
-
-                    }
-
-                }
-
-            }
-        );
-
-    }
-
-
-    // ==================================================
-    // FULL REVIEW MODAL
-    // ==================================================
-
-    const reviewModalElement =
-        document.getElementById("reviewModal");
-
-
-    if (!reviewModalElement) {
-        return;
-    }
-
-
-    const reviewModal =
-        new bootstrap.Modal(reviewModalElement);
-
-
-    // Find all View buttons
-
-    document
-        .querySelectorAll(".view-review-btn")
-        .forEach(function (button) {
-
-
-            button.addEventListener(
+            togglePassword.addEventListener(
                 "click",
                 function () {
 
+                    const isPassword =
+                        passwordInput.getAttribute("type") === "password";
 
-                    // ==========================================
-                    // GET REVIEW ID
-                    // ==========================================
-
-                    const reviewId =
-                        this.getAttribute(
-                            "data-review-id"
-                        );
-
-
-                    console.log(
-                        "Opening review:",
-                        reviewId
+                    passwordInput.setAttribute(
+                        "type",
+                        isPassword ? "text" : "password"
                     );
 
+                    const icon =
+                        this.querySelector("i");
 
-                    // ==========================================
-                    // RESET MODAL
-                    // ==========================================
+                    if (icon) {
 
-                    document.getElementById(
-                        "reviewLoading"
-                    ).style.display = "block";
+                        if (isPassword) {
 
+                            icon.classList.remove("fa-eye");
+                            icon.classList.add("fa-eye-slash");
 
-                    document.getElementById(
-                        "reviewContent"
-                    ).style.display = "none";
+                            this.setAttribute(
+                                "aria-label",
+                                "Hide password"
+                            );
 
+                        } else {
 
-                    document.getElementById(
-                        "reviewError"
-                    ).style.display = "none";
+                            icon.classList.remove("fa-eye-slash");
+                            icon.classList.add("fa-eye");
 
-
-                    // ==========================================
-                    // OPEN MODAL
-                    // ==========================================
-
-                    reviewModal.show();
-
-
-                    // ==========================================
-                    // FETCH REVIEW
-                    // ==========================================
-
-                    fetch(
-                        `/review-detail/${reviewId}/`,
-                        {
-                            method: "GET",
-
-                            headers: {
-                                "X-Requested-With":
-                                    "XMLHttpRequest"
-                            }
-                        }
-                    )
-
-
-                    .then(function (response) {
-
-
-                        console.log(
-                            "Review response status:",
-                            response.status
-                        );
-
-
-                        if (!response.ok) {
-
-                            throw new Error(
-                                "Unable to load review."
+                            this.setAttribute(
+                                "aria-label",
+                                "Show password"
                             );
 
                         }
 
+                    }
 
-                        return response.json();
+                }
+            );
 
-                    })
-.then(function (data) {
-
-    // Hide any previous error
-    document.getElementById(
-        "reviewError"
-    ).style.display = "none";
+        }
 
 
-    // ==========================================
-    // STUDENT INFORMATION
-    // ==========================================
+        // ==================================================
+        // FULL REVIEW MODAL
+        // ==================================================
+        //
+        // IMPORTANT:
+        // No fetch()
+        // No AJAX
+        // No redirect
+        //
+        // Review information is already present inside
+        // the View button using data-* attributes.
+        // This is mobile-safe.
+        // ==================================================
 
-    document.getElementById(
-        "detailStudentName"
-    ).textContent =
-        data.student_name || "N/A";
+        const reviewModalElement =
+            document.getElementById("reviewModal");
 
-    document.getElementById(
-        "detailStudentEmail"
-    ).textContent =
-        data.student_email || "N/A";
+        if (!reviewModalElement) {
+            return;
+        }
 
-    // ...rest of your code
+        if (typeof bootstrap === "undefined") {
+            console.error("❌ Bootstrap JS not loaded.");
+            return;
+        }
 
-                    .then(function (data) {
+        const reviewModal =
+            new bootstrap.Modal(reviewModalElement);
 
+
+        // ==================================================
+        // FIND ALL VIEW BUTTONS
+        // ==================================================
+
+        document
+            .querySelectorAll(".view-review-btn")
+            .forEach(function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
 
                         console.log(
-                            "Review data:",
-                            data
+                            "Opening review:",
+                            this.getAttribute("data-review-id")
                         );
+
+
+                        // ==========================================
+                        // READ DATA FROM BUTTON
+                        // ==========================================
+
+                        const studentName =
+                            this.getAttribute("data-student-name") || "N/A";
+
+                        const studentEmail =
+                            this.getAttribute("data-student-email") || "N/A";
+
+                        const course =
+                            this.getAttribute("data-course") || "N/A";
+
+                        const batch =
+                            this.getAttribute("data-batch") || "N/A";
+
+                        const rating =
+                            this.getAttribute("data-rating") || "0";
+
+                        const teaching =
+                            this.getAttribute("data-teaching") || "0";
+
+                        const communication =
+                            this.getAttribute("data-communication") || "0";
+
+                        const practical =
+                            this.getAttribute("data-practical") || "0";
+
+                        const doubt =
+                            this.getAttribute("data-doubt") || "0";
+
+                        const sentiment =
+                            this.getAttribute("data-sentiment") || "neutral";
+
+                        const feedback =
+                            this.getAttribute("data-feedback") ||
+                            "No feedback provided.";
+
+                        const createdAt =
+                            this.getAttribute("data-created-at") || "N/A";
 
 
                         // ==========================================
                         // STUDENT INFORMATION
                         // ==========================================
 
-                        document.getElementById(
-                            "detailStudentName"
-                        ).textContent =
-                            data.student_name || "N/A";
+                        const studentNameElement =
+                            document.getElementById("detailStudentName");
+
+                        const studentEmailElement =
+                            document.getElementById("detailStudentEmail");
+
+                        const courseElement =
+                            document.getElementById("detailCourse");
+
+                        const batchElement =
+                            document.getElementById("detailBatch");
 
 
-                        document.getElementById(
-                            "detailStudentEmail"
-                        ).textContent =
-                            data.student_email || "N/A";
+                        if (studentNameElement) {
+                            studentNameElement.textContent = studentName;
+                        }
 
+                        if (studentEmailElement) {
+                            studentEmailElement.textContent = studentEmail;
+                        }
 
-                        document.getElementById(
-                            "detailCourse"
-                        ).textContent =
-                            data.course || "N/A";
+                        if (courseElement) {
+                            courseElement.textContent = course;
+                        }
 
-
-                        document.getElementById(
-                            "detailBatch"
-                        ).textContent =
-                            data.batch || "N/A";
+                        if (batchElement) {
+                            batchElement.textContent = batch;
+                        }
 
 
                         // ==========================================
                         // RATINGS
                         // ==========================================
 
-                        document.getElementById(
-                            "detailRating"
-                        ).textContent =
-                            `${data.rating}/5 ⭐`;
+                        const ratingElement =
+                            document.getElementById("detailRating");
+
+                        const teachingElement =
+                            document.getElementById("detailTeaching");
+
+                        const communicationElement =
+                            document.getElementById("detailCommunication");
+
+                        const practicalElement =
+                            document.getElementById("detailPractical");
+
+                        const doubtElement =
+                            document.getElementById("detailDoubt");
 
 
-                        document.getElementById(
-                            "detailTeaching"
-                        ).textContent =
-                            `${data.teaching_quality}/5 ⭐`;
+                        if (ratingElement) {
+                            ratingElement.textContent =
+                                `${rating}/5 ⭐`;
+                        }
 
+                        if (teachingElement) {
+                            teachingElement.textContent =
+                                `${teaching}/5 ⭐`;
+                        }
 
-                        document.getElementById(
-                            "detailCommunication"
-                        ).textContent =
-                            `${data.communication}/5 ⭐`;
+                        if (communicationElement) {
+                            communicationElement.textContent =
+                                `${communication}/5 ⭐`;
+                        }
 
+                        if (practicalElement) {
+                            practicalElement.textContent =
+                                `${practical}/5 ⭐`;
+                        }
 
-                        document.getElementById(
-                            "detailPractical"
-                        ).textContent =
-                            `${data.practical_knowledge}/5 ⭐`;
-
-
-                        document.getElementById(
-                            "detailDoubt"
-                        ).textContent =
-                            `${data.doubt_solving}/5 ⭐`;
+                        if (doubtElement) {
+                            doubtElement.textContent =
+                                `${doubt}/5 ⭐`;
+                        }
 
 
                         // ==========================================
                         // SENTIMENT
                         // ==========================================
 
-                        const sentiment =
-                            data.sentiment || "neutral";
+                        const sentimentElement =
+                            document.getElementById("detailSentiment");
 
-
-                        document.getElementById(
-                            "detailSentiment"
-                        ).textContent =
-                            sentiment
-                                .charAt(0)
-                                .toUpperCase()
-                            +
+                        const formattedSentiment =
+                            sentiment.charAt(0).toUpperCase() +
                             sentiment.slice(1);
+
+
+                        if (sentimentElement) {
+                            sentimentElement.textContent =
+                                formattedSentiment;
+                        }
 
 
                         // ==========================================
                         // FEEDBACK
                         // ==========================================
 
-                        document.getElementById(
-                            "detailFeedback"
-                        ).textContent =
-                            data.feedback ||
-                            "No feedback provided.";
+                        const feedbackElement =
+                            document.getElementById("detailFeedback");
+
+
+                        if (feedbackElement) {
+                            feedbackElement.textContent = feedback;
+                        }
 
 
                         // ==========================================
                         // DATE
                         // ==========================================
 
-                        document.getElementById(
-                            "detailCreatedAt"
-                        ).textContent =
-                            data.created_at || "N/A";
+                        const createdAtElement =
+                            document.getElementById("detailCreatedAt");
+
+
+                        if (createdAtElement) {
+                            createdAtElement.textContent =
+                                createdAt;
+                        }
 
 
                         // ==========================================
-                        // SHOW CONTENT
+                        // OPEN MODAL
                         // ==========================================
 
-                        document.getElementById(
-                            "reviewLoading"
-                        ).style.display = "none";
+                        reviewModal.show();
 
+                    }
+                );
 
-                        document.getElementById(
-                            "reviewContent"
-                        ).style.display = "block";
+            });
 
+    });
 
-                    })
-
-
-                    .catch(function (error) {
-
-
-                        console.error(
-                            "Review loading error:",
-                            error
-                        );
-
-
-                        // Hide loading
-
-                        document.getElementById(
-                            "reviewLoading"
-                        ).style.display = "none";
-
-
-                        // Show error
-
-                        const errorBox =
-                            document.getElementById(
-                                "reviewError"
-                            );
-
-
-                        errorBox.textContent =
-                            "Unable to load this review. Please try again.";
-
-
-                        errorBox.style.display =
-                            "block";
-
-                    });
-
-                }
-            );
-
-        });
-
-});
+})();

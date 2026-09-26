@@ -4,15 +4,10 @@ import base64
 import binascii
 from django.utils import timezone
 from io import BytesIO
-
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 from django.db import transaction
-from django.contrib.auth import (
-    authenticate,
-    login,
-    logout
-)
+from django.contrib.auth import (authenticate,login,logout)
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
@@ -22,41 +17,18 @@ from django.core.exceptions import ValidationError
 from django.db.models import Avg, Q
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponse
-from .forms import (
-    ReviewForm,
-    FacultyProfileForm,
-    EducationFormSet,
-    SkillFormSet
-)
-from .models import (
-    Review,
-    FacultyProfile
-)
-
-from .email_utils import (
-    send_student_thank_you,
-    send_admin_notification
-)
-
+from .forms import (ReviewForm,FacultyProfileForm,EducationFormSet,SkillFormSet)
+from .models import (Review,FacultyProfile)
+from .email_utils import (send_student_thank_you,send_admin_notification)
 from .sentiment_utils import analyze_sentiment
 from .google_auth import create_google_flow
-
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
-
 import requests
 import csv
-
 from io import BytesIO
-
 from openpyxl import Workbook
-from openpyxl.styles import (
-    Font,
-    PatternFill,
-    Alignment
-)
-
-
+from openpyxl.styles import (Font,PatternFill,Alignment)
 # =========================================================
 # HOME
 # =========================================================

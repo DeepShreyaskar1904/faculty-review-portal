@@ -359,6 +359,55 @@ textarea.form-control {
 
 
 /* =========================================================
+   ATTRACTIVE PROFILE IMAGE FILE PICKER
+   ========================================================= */
+
+.image-input input[type="file"] {
+    cursor: pointer;
+    padding: 7px 9px;
+}
+
+.image-input input[type="file"]::file-selector-button {
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 15px;
+    margin-right: 12px;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+    box-shadow: 0 5px 14px rgba(79,70,229,.20);
+}
+
+.image-input input[type="file"]::file-selector-button:hover {
+    background: linear-gradient(135deg, #4338ca, #6d28d9);
+    transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .image-input input[type="file"]::file-selector-button {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    box-shadow: 0 5px 16px rgba(99,102,241,.22);
+}
+
+html[data-theme="dark"] .image-input input[type="file"]::file-selector-button:hover {
+    background: linear-gradient(135deg, #818cf8, #a78bfa);
+}
+
+.image-preview {
+    cursor: zoom-in;
+    position: relative;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.image-preview:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15,23,42,.14);
+}
+
+
+/* =========================================================
    DYNAMIC SECTION
    ========================================================= */
 
@@ -435,6 +484,428 @@ textarea.form-control {
 
     box-shadow:
         0 8px 20px rgba(15,23,42,.05);
+}
+/* =========================================================
+   EDUCATION — COMPACT COLLAPSIBLE CARDS
+   Uses the existing page colors only.
+   ========================================================= */
+
+.education-item {
+    padding: 0;
+    overflow: hidden;
+}
+
+.education-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.education-summary::-webkit-details-marker {
+    display: none;
+}
+
+.education-summary::marker {
+    display: none;
+}
+
+.education-summary-left {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.education-summary .item-title {
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.education-summary-info {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.education-summary-degree {
+    font-weight: 700;
+    color: #374151;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 240px;
+}
+
+.education-summary-field {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px;
+}
+
+.education-summary-separator {
+    color: #94a3b8;
+}
+
+.education-summary-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.education-chevron {
+    color: #4f46e5;
+    font-size: 13px;
+    transition: transform .2s ease;
+}
+
+.education-item[open] .education-chevron {
+    transform: rotate(180deg);
+}
+
+.education-form-body {
+    padding: 0 20px 20px;
+}
+
+.education-item[open] .education-summary {
+    border-bottom: 1.5px solid #cbd5e1;
+}
+
+.education-delete {
+    padding-bottom: 0;
+}
+
+.education-delete input {
+    accent-color: #4f46e5;
+}
+
+@media (max-width: 768px) {
+    .education-summary {
+        align-items: flex-start;
+    }
+
+    .education-summary-left {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .education-summary-info {
+        margin-left: 29px;
+        flex-wrap: wrap;
+    }
+
+    .education-summary-degree,
+    .education-summary-field {
+        max-width: 180px;
+    }
+
+    .education-summary-right {
+        padding-top: 2px;
+    }
+
+    .education-form-body {
+        padding: 0 20px 20px;
+    }
+}
+
+/* ---------- DARK MODE: existing palette ---------- */
+
+html[data-theme="dark"] .education-summary-info {
+    color: #94a3b8;
+}
+
+html[data-theme="dark"] .education-summary-degree {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .education-summary-separator {
+    color: #64748b;
+}
+
+html[data-theme="dark"] .education-chevron {
+    color: #818cf8;
+}
+
+html[data-theme="dark"] .education-item[open] .education-summary {
+    border-bottom-color: #475569;
+}
+
+
+/* =========================================================
+   SKILLS — HORIZONTAL BUTTONS + MODAL-LIKE DETAIL WINDOW
+   Closed = compact horizontal button.
+   Click = opens a centered detail window.
+   Existing form fields remain real formset fields.
+   ========================================================= */
+
+#skillContainer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+}
+
+.skill-item {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+    background: #f8fafc;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 11px;
+    transition: .2s ease;
+}
+
+.skill-item:hover {
+    border-color: #a5b4fc;
+    box-shadow: 0 7px 18px rgba(15,23,42,.08);
+}
+
+/* Closed state = clean horizontal button */
+.skill-item:not([open]) {
+    overflow: hidden;
+}
+
+.skill-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 42px;
+    padding: 9px 13px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+
+.skill-summary::-webkit-details-marker { display: none; }
+.skill-summary::marker { display: none; }
+
+.skill-summary-left {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-summary .item-title {
+    display: none;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.skill-summary-info {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #334155;
+    font-size: 13px;
+}
+
+.skill-summary-name {
+    font-weight: 700;
+    color: #334155;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px;
+}
+
+.skill-summary-right {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+}
+
+/* Keep closed buttons compact: only skill name + chevron. */
+.skill-item:not([open]) .skill-summary-right .skill-delete,
+.skill-item:not([open]) .skill-summary-right .remove-skill {
+    display: none;
+}
+
+.skill-chevron {
+    color: #4f46e5;
+    font-size: 12px;
+    transition: transform .2s ease;
+}
+
+/* =========================================================
+   OPEN SKILL = CENTERED DETAIL WINDOW
+   ========================================================= */
+
+.skill-item[open] {
+    position: fixed;
+    z-index: 100001;
+    top: 50%;
+    left: 50%;
+    width: min(650px, calc(100vw - 32px));
+    max-height: calc(100vh - 40px);
+    margin: 0;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+    background: #ffffff;
+    border: 2px solid #c7d2fe;
+    border-radius: 18px;
+    box-shadow:
+        0 28px 80px rgba(15,23,42,.28),
+        0 0 0 9999px rgba(15,23,42,.58);
+    animation: skillWindowIn .18s ease-out;
+}
+
+@keyframes skillWindowIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.skill-item[open] .skill-summary {
+    min-height: 58px;
+    padding: 15px 18px;
+    border-bottom: 1.5px solid #cbd5e1;
+}
+
+.skill-item[open] .skill-summary .item-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #172033;
+}
+
+.skill-item[open] .skill-summary-info {
+    font-size: 13px;
+}
+
+.skill-item[open] .skill-summary-name {
+    color: #4f46e5;
+    max-width: 300px;
+}
+
+.skill-item[open] .skill-summary-right .skill-delete,
+.skill-item[open] .skill-summary-right .remove-skill {
+    display: inline-flex;
+}
+
+.skill-item[open] .skill-chevron {
+    transform: rotate(180deg);
+}
+
+.skill-form-body {
+    padding: 20px;
+}
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px;
+    gap: 16px;
+    align-items: end;
+}
+
+.skill-grid .remove-skill {
+    display: none;
+}
+
+.skill-delete {
+    padding-bottom: 0;
+}
+
+.skill-delete input {
+    accent-color: #4f46e5;
+}
+
+html[data-theme="dark"] .skill-item {
+    background: #172033 !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .skill-item:hover {
+    border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .skill-summary-info {
+    color: #cbd5e1;
+}
+
+html[data-theme="dark"] .skill-summary-name {
+    color: #e2e8f0;
+}
+
+html[data-theme="dark"] .skill-chevron {
+    color: #818cf8;
+}
+
+html[data-theme="dark"] .skill-item[open] {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    box-shadow:
+        0 28px 80px rgba(0,0,0,.45),
+        0 0 0 9999px rgba(2,6,23,.70);
+}
+
+html[data-theme="dark"] .skill-item[open] .skill-summary {
+    border-bottom-color: #475569;
+}
+
+html[data-theme="dark"] .skill-item[open] .skill-summary .item-title {
+    color: #f8fafc;
+}
+
+html[data-theme="dark"] .skill-item[open] .skill-summary-name {
+    color: #a5b4fc;
+}
+
+@media (max-width: 768px) {
+    #skillContainer {
+        gap: 10px;
+    }
+
+    .skill-summary {
+        min-height: 42px;
+        padding: 9px 12px;
+    }
+
+    .skill-summary-name {
+        max-width: 190px;
+    }
+
+    .skill-item[open] {
+        width: calc(100vw - 24px);
+        max-height: calc(100vh - 24px);
+        border-radius: 16px;
+    }
+
+    .skill-item[open] .skill-summary {
+        padding: 13px 15px;
+    }
+
+    .skill-form-body {
+        padding: 16px;
+    }
+
+    .skill-grid {
+        grid-template-columns: 1fr;
+        gap: 13px;
+    }
 }
 
 
@@ -662,13 +1133,14 @@ textarea.form-control {
 /* IMAGE VIEWER */
 .image-viewer-modal{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;padding:25px;background:rgba(15,23,42,.82);backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:.25s ease}
 .image-viewer-modal.active{opacity:1;visibility:visible;pointer-events:auto}
-.image-viewer-card{position:relative;max-width:min(850px,94vw);max-height:90vh;display:flex;align-items:center;justify-content:center;transform:scale(.94);transition:.25s ease}
+.image-viewer-card{position:relative;max-width:min(850px,94vw);max-height:90vh;display:flex;align-items:center;justify-content:center;transform:scale(.94);transition:.25s ease;padding:8px}
 .image-viewer-modal.active .image-viewer-card{transform:scale(1)}
-.image-viewer-image{display:block;max-width:88vw;max-height:86vh;width:auto;height:auto;object-fit:contain;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.40);background:#fff}
-.image-viewer-close{position:absolute;top:-18px;right:-18px;width:42px;height:42px;border:0;border-radius:50%;background:#fff;color:#111827;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:.2s ease;z-index:2}
+.image-viewer-image{display:block;max-width:88vw;max-height:86vh;width:auto;height:auto;object-fit:contain;border-radius:16px;box-shadow:0 30px 90px rgba(0,0,0,.40);background:#fff;border:3px solid rgba(255,255,255,.92)}
+.image-viewer-close{position:absolute;top:-8px;right:-8px;width:42px;height:42px;border:2px solid rgba(255,255,255,.85);border-radius:50%;background:#fff;color:#111827;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;box-shadow:0 10px 30px rgba(0,0,0,.30);transition:.2s ease;z-index:2}
 .image-viewer-close:hover{background:#fee2e2;color:#dc2626;transform:rotate(90deg)}
 #profilePreview{cursor:zoom-in}
-@media (max-width:768px){.image-viewer-modal{padding:18px}.image-viewer-image{max-width:90vw;max-height:82vh;border-radius:12px}.image-viewer-close{top:-12px;right:-12px;width:38px;height:38px}}
+@media (max-width:768px){.image-viewer-modal{padding:18px}.image-viewer-image{max-width:90vw;max-height:82vh;border-radius:12px}.image-viewer-close{top:-7px;right:-7px;width:38px;height:38px}}
+html[data-theme="dark"] .image-viewer-image{border-color:#334155;background:#0f172a}
 
 .image-crop-modal {
 
@@ -1181,7 +1653,380 @@ textarea.form-control {
     }
 
 }
+/* =========================================================
+   MANAGE PROFILE — DARK / LIGHT THEME FIX
+========================================================= */
 
+/* ---------- LIGHT MODE ---------- */
+
+html[data-theme="light"] .profile-page {
+    background: #f5f7fb !important;
+    color: #172033 !important;
+}
+
+html[data-theme="light"] .profile-header h1 {
+    color: #172033 !important;
+}
+
+html[data-theme="light"] .profile-header p {
+    color: #64748b !important;
+}
+
+html[data-theme="light"] .profile-card {
+    background: #ffffff !important;
+    border-color: #dbe3ef !important;
+}
+
+html[data-theme="light"] .section-heading h2 {
+    color: #172033 !important;
+}
+
+html[data-theme="light"] .section-heading p {
+    color: #64748b !important;
+}
+
+html[data-theme="light"] .form-label {
+    color: #334155 !important;
+}
+
+html[data-theme="light"] .form-control,
+html[data-theme="light"] .profile-card input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="light"] .profile-card select {
+    background: #ffffff !important;
+    color: #172033 !important;
+    border-color: #cbd5e1 !important;
+}
+
+
+/* ---------- DARK MODE ---------- */
+
+html[data-theme="dark"] .profile-page {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .profile-header h1 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .profile-header p {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .profile-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.28) !important;
+}
+
+html[data-theme="dark"] .section-heading {
+    border-bottom-color: #475569 !important;
+}
+
+html[data-theme="dark"] .section-heading h2 {
+    color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .section-heading p {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .form-label {
+    color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] .help-text {
+    color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .profile-card input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="dark"] .profile-card select,
+html[data-theme="dark"] .profile-card textarea {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+}
+
+html[data-theme="dark"] .form-control::placeholder,
+html[data-theme="dark"] .profile-card input::placeholder,
+html[data-theme="dark"] .profile-card textarea::placeholder {
+    color: #64748b !important;
+}
+
+html[data-theme="dark"] .form-control:focus,
+html[data-theme="dark"] .profile-card input:focus,
+html[data-theme="dark"] .profile-card select:focus,
+html[data-theme="dark"] .profile-card textarea:focus {
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.18) !important;
+}
+
+html[data-theme="dark"] .section-heading-icon {
+    background: #312e81 !important;
+    color: #c7d2fe !important;
+}
+
+html[data-theme="dark"] .image-preview {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .image-placeholder {
+    color: #64748b !important;
+}
+
+/* Dynamic education / skills sections */
+
+html[data-theme="dark"] .dynamic-item,
+html[data-theme="dark"] .education-item,
+html[data-theme="dark"] .skill-item {
+    background: #172033 !important;
+    border-color: #334155 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Required star */
+
+html[data-theme="dark"] .required {
+    color: #f87171 !important;
+}
+
+/* Error text */
+
+html[data-theme="dark"] .error-message,
+html[data-theme="dark"] .form-errors {
+    color: #fca5a5 !important;
+}
+
+/* Success message */
+
+html[data-theme="dark"] .success-message {
+    background: #052e1b !important;
+    color: #6ee7b7 !important;
+    border-color: #065f46 !important;
+}
+/* =========================================================
+   DARK THEME - MANAGE PROFILE FIX
+   ========================================================= */
+
+/* Main profile headings */
+html[data-theme="dark"] .profile-header h1,
+html[data-theme="dark"] .section-heading h2,
+html[data-theme="dark"] .section-heading p,
+html[data-theme="dark"] .item-title,
+html[data-theme="dark"] .item-title i,
+html[data-theme="dark"] .dynamic-header,
+html[data-theme="dark"] .form-label {
+    color: #f8fafc !important;
+}
+
+
+/* Section subtitles */
+html[data-theme="dark"] .section-heading p {
+    color: #94a3b8 !important;
+}
+
+
+/* Dynamic item / Education / Skill cards */
+html[data-theme="dark"] .dynamic-item {
+    background: #172033 !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+}
+
+
+/* Hover effect */
+html[data-theme="dark"] .dynamic-item:hover {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+
+/* Skill / Education title */
+html[data-theme="dark"] .item-title {
+    color: #f8fafc !important;
+}
+
+
+html[data-theme="dark"] .item-title i {
+    color: #818cf8 !important;
+}
+
+
+/* Horizontal lines */
+html[data-theme="dark"] .item-top {
+    border-bottom-color: #475569 !important;
+}
+
+
+html[data-theme="dark"] .action-area {
+    border-top-color: #475569 !important;
+}
+
+
+/* Labels */
+html[data-theme="dark"] .form-label {
+    color: #e2e8f0 !important;
+}
+
+
+/* Inputs */
+html[data-theme="dark"] .dynamic-item input,
+html[data-theme="dark"] .dynamic-item textarea,
+html[data-theme="dark"] .dynamic-item select,
+html[data-theme="dark"] input,
+html[data-theme="dark"] textarea,
+html[data-theme="dark"] select {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #475569 !important;
+}
+
+
+/* Input focus */
+html[data-theme="dark"] .dynamic-item input:focus,
+html[data-theme="dark"] .dynamic-item textarea:focus,
+html[data-theme="dark"] .dynamic-item select:focus,
+html[data-theme="dark"] input:focus,
+html[data-theme="dark"] textarea:focus,
+html[data-theme="dark"] select:focus {
+    background: #0f172a !important;
+    color: #ffffff !important;
+    border-color: #818cf8 !important;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15) !important;
+}
+
+
+/* Placeholder */
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #64748b !important;
+}
+
+
+/* Delete checkbox + text */
+html[data-theme="dark"] .delete-existing {
+    color: #e2e8f0 !important;
+}
+
+
+/* Delete / Remove buttons */
+html[data-theme="dark"] .remove-button {
+    background: #3f1d25 !important;
+    color: #fca5a5 !important;
+    border: 1px solid #7f1d1d !important;
+}
+
+
+html[data-theme="dark"] .remove-button:hover {
+    background: #7f1d1d !important;
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   CANCEL BUTTON - DARK THEME
+   ========================================================= */
+
+html[data-theme="dark"] .btn-cancel {
+    background: #1e293b !important;
+    color: #cbd5e1 !important;
+    border: 1px solid #475569 !important;
+    box-shadow: none !important;
+}
+
+
+html[data-theme="dark"] .btn-cancel i {
+    color: #93c5fd !important;
+}
+
+
+html[data-theme="dark"] .btn-cancel:hover {
+    background: #334155 !important;
+    color: #ffffff !important;
+    border-color: #64748b !important;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
+html[data-theme="dark"] .btn-save {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   ADD SKILL BUTTON
+   ========================================================= */
+
+html[data-theme="dark"] .add-button {
+    color: #ffffff !important;
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+html[data-theme="dark"] .error-message {
+    color: #fca5a5 !important;
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+   ========================================================= */
+
+html[data-theme="dark"] .success-message {
+    background: #052e1b !important;
+    color: #86efac !important;
+    border-color: #166534 !important;
+}
+
+
+/* =========================================================
+   PROFILE CARD / MAIN CONTAINER
+   ========================================================= */
+
+html[data-theme="dark"] .profile-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+
+
+/* Section backgrounds */
+html[data-theme="dark"] .section {
+    color: #f8fafc !important;
+}
+
+
+/* Required star */
+html[data-theme="dark"] .required {
+    color: #f87171 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    html[data-theme="dark"] .btn-cancel {
+        background: #1e293b !important;
+        color: #cbd5e1 !important;
+        border-color: #475569 !important;
+    }
+
+    html[data-theme="dark"] .btn-cancel:hover {
+        background: #334155 !important;
+        color: #ffffff !important;
+    }
+}
 </style>
 
 
@@ -1750,224 +2595,216 @@ textarea.form-control {
 
                     {% for education_form in education_formset %}
 
-                        <div class="dynamic-item education-item">
-
+                        <details class="dynamic-item education-item"{% if education_form.non_field_errors or education_form.errors %} open{% endif %}>
 
                             {{ education_form.id }}
 
-
-                            <div class="item-top">
-
-                                <div class="item-title">
-
-                                    <i class="fa-solid fa-book-open"></i>
-
-                                    Education
-                                    {{ forloop.counter }}
-
-                                </div>
-
-
-                                {% if education_form.instance.pk %}
-
-                                    <label class="delete-existing">
-
-                                        {{ education_form.DELETE }}
-
-                                        Delete
-
-                                    </label>
-
-                                {% else %}
-
-                                    <button
-                                        type="button"
-                                        class="remove-button remove-education"
-                                    >
-
-                                        <i class="fa-solid fa-trash"></i>
-
-                                        Remove
-
-                                    </button>
-
-                                {% endif %}
-
-                            </div>
-
-
-                            {% if education_form.non_field_errors %}
-
-                                <div class="form-errors">
-
-                                    {{ education_form.non_field_errors }}
-
-                                </div>
-
-                            {% endif %}
-
-
-                            <div class="form-grid">
-
-
-                                <!-- DEGREE -->
-
-                                <div class="form-group">
-
-                                    <label class="form-label">
-
-                                        Degree
-                                        <span class="required">*</span>
-
-                                    </label>
-
-                                    {{ education_form.degree }}
-
-                                    {% for error in education_form.degree.errors %}
-
-                                        <div class="error-message">
-
-                                            {{ error }}
-
-                                        </div>
-
-                                    {% endfor %}
-
-                                </div>
-
-
-                                <!-- FIELD -->
-
-                                <div class="form-group">
-
-                                    <label class="form-label">
-
-                                        Field of Study
-                                        <span class="required">*</span>
-
-                                    </label>
-
-                                    {{ education_form.field_of_study }}
-
-                                    {% for error in education_form.field_of_study.errors %}
-
-                                        <div class="error-message">
-
-                                            {{ error }}
-
-                                        </div>
-
-                                    {% endfor %}
-
-                                </div>
-
-
-                                <!-- INSTITUTION -->
-
-                                <div class="form-group">
-
-                                    <label class="form-label">
-
-                                        Institution
-
-                                    </label>
-
-                                    {{ education_form.institution }}
-
-                                    {% for error in education_form.institution.errors %}
-
-                                        <div class="error-message">
-
-                                            {{ error }}
-
-                                        </div>
-
-                                    {% endfor %}
-
-                                </div>
-
-
-                                <!-- STATUS -->
-
-                                <div class="form-group">
-
-                                    <label class="form-label">
-
-                                        Status
-
-                                    </label>
-
-                                    {{ education_form.status }}
-
-                                    {% for error in education_form.status.errors %}
-
-                                        <div class="error-message">
-
-                                            {{ error }}
-
-                                        </div>
-
-                                    {% endfor %}
-
-                                </div>
-
-
-                                <!-- START YEAR -->
-
-                                <div class="form-group">
-
-                                    <label class="form-label">
-
-                                        Start Year
-
-                                    </label>
-
-                                    {{ education_form.start_year }}
-
-                                </div>
-
-
-                                <!-- END YEAR -->
-
-                                <div class="form-group">
-
-                                    <label class="form-label">
-
-                                        End Year
-
-                                    </label>
-
-                                    {{ education_form.end_year }}
-
-                                </div>
-
-
-                                <!-- ORDER -->
-
-                                <div class="form-group">
-
-                                    <label class="form-label">
-
-                                        Display Order
-
-                                    </label>
-
-                                    {{ education_form.display_order }}
-
-                                    <div class="help-text">
-
-                                        1 = first,
-                                        2 = second,
-                                        etc.
-
+                            <summary class="education-summary">
+
+                                <div class="education-summary-left">
+
+                                    <div class="item-title">
+                                        <i class="fa-solid fa-book-open"></i>
+                                        <span>Education {{ forloop.counter }}</span>
+                                    </div>
+
+                                    <div class="education-summary-info">
+                                        <span class="education-summary-degree">
+                                            {% if education_form.instance.degree %}
+                                                {{ education_form.instance.degree }}
+                                            {% else %}
+                                                Add degree
+                                            {% endif %}
+                                        </span>
+
+                                        {% if education_form.instance.field_of_study %}
+                                            <span class="education-summary-separator">•</span>
+                                            <span class="education-summary-field">
+                                                {{ education_form.instance.field_of_study }}
+                                            </span>
+                                        {% endif %}
                                     </div>
 
                                 </div>
 
+                                <div class="education-summary-right">
+
+                                    {% if education_form.instance.pk %}
+
+                                        <label class="delete-existing education-delete" title="Delete this education">
+                                            {{ education_form.DELETE }}
+                                            <span>Delete</span>
+                                        </label>
+
+                                    {% else %}
+
+                                        <button
+                                            type="button"
+                                            class="remove-button remove-education"
+                                        >
+                                            <i class="fa-solid fa-trash"></i>
+                                            Remove
+                                        </button>
+
+                                    {% endif %}
+
+                                    <i class="fa-solid fa-chevron-down education-chevron"></i>
+
+                                </div>
+
+                            </summary>
+
+
+                            <div class="education-form-body">
+
+                                {% if education_form.non_field_errors %}
+
+                                    <div class="form-errors">
+                                        {{ education_form.non_field_errors }}
+                                    </div>
+
+                                {% endif %}
+
+
+                                <div class="form-grid">
+
+
+                                    <!-- DEGREE -->
+
+                                    <div class="form-group">
+
+                                        <label class="form-label">
+                                            Degree
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        {{ education_form.degree }}
+
+                                        {% for error in education_form.degree.errors %}
+
+                                            <div class="error-message">
+                                                {{ error }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+
+                                    <!-- FIELD -->
+
+                                    <div class="form-group">
+
+                                        <label class="form-label">
+                                            Field of Study
+                                            <span class="required">*</span>
+                                        </label>
+
+                                        {{ education_form.field_of_study }}
+
+                                        {% for error in education_form.field_of_study.errors %}
+
+                                            <div class="error-message">
+                                                {{ error }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+
+                                    <!-- INSTITUTION -->
+
+                                    <div class="form-group">
+
+                                        <label class="form-label">
+                                            Institution
+                                        </label>
+
+                                        {{ education_form.institution }}
+
+                                        {% for error in education_form.institution.errors %}
+
+                                            <div class="error-message">
+                                                {{ error }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+
+                                    <!-- STATUS -->
+
+                                    <div class="form-group">
+
+                                        <label class="form-label">
+                                            Status
+                                        </label>
+
+                                        {{ education_form.status }}
+
+                                        {% for error in education_form.status.errors %}
+
+                                            <div class="error-message">
+                                                {{ error }}
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+
+                                    <!-- START YEAR -->
+
+                                    <div class="form-group">
+
+                                        <label class="form-label">
+                                            Start Year
+                                        </label>
+
+                                        {{ education_form.start_year }}
+
+                                    </div>
+
+
+                                    <!-- END YEAR -->
+
+                                    <div class="form-group">
+
+                                        <label class="form-label">
+                                            End Year
+                                        </label>
+
+                                        {{ education_form.end_year }}
+
+                                    </div>
+
+
+                                    <!-- ORDER -->
+
+                                    <div class="form-group">
+
+                                        <label class="form-label">
+                                            Display Order
+                                        </label>
+
+                                        {{ education_form.display_order }}
+
+                                        <div class="help-text">
+                                            1 = first,
+                                            2 = second,
+                                            etc.
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
 
                             </div>
 
-                        </div>
+                        </details>
 
                     {% endfor %}
 
@@ -2035,39 +2872,54 @@ textarea.form-control {
 
                     {% for skill_form in skill_formset %}
 
-                        <div class="dynamic-item skill-item">
-
+                        <details class="dynamic-item skill-item"{% if skill_form.non_field_errors or skill_form.errors %} open{% endif %}>
 
                             {{ skill_form.id }}
 
+                            <summary class="skill-summary">
 
-                            {% if skill_form.instance.pk %}
-
-                                <div class="item-top">
+                                <div class="skill-summary-left">
 
                                     <div class="item-title">
-
                                         <i class="fa-solid fa-code"></i>
-
-                                        Skill
-
+                                        <span>Skill {{ forloop.counter }}</span>
                                     </div>
 
-
-                                    <label class="delete-existing">
-
-                                        {{ skill_form.DELETE }}
-
-                                        Delete
-
-                                    </label>
+                                    <div class="skill-summary-info">
+                                        <span class="skill-summary-name">
+                                            {% if skill_form.instance.name %}
+                                                {{ skill_form.instance.name }}
+                                            {% else %}
+                                                Add skill
+                                            {% endif %}
+                                        </span>
+                                    </div>
 
                                 </div>
 
-                            {% endif %}
+                                <div class="skill-summary-right">
 
+                                    {% if skill_form.instance.pk %}
+                                        <label class="delete-existing skill-delete" title="Delete this skill">
+                                            {{ skill_form.DELETE }}
+                                            <span>Delete</span>
+                                        </label>
+                                    {% else %}
+                                        <button type="button" class="remove-button remove-skill">
+                                            <i class="fa-solid fa-trash"></i>
+                                            Remove
+                                        </button>
+                                    {% endif %}
 
-                            <div class="skill-grid">
+                                    <i class="fa-solid fa-chevron-down skill-chevron"></i>
+
+                                </div>
+
+                            </summary>
+
+                            <div class="skill-form-body">
+
+                                <div class="skill-grid">
 
 
                                 <div class="form-group">
@@ -2120,9 +2972,11 @@ textarea.form-control {
                                 {% endif %}
 
 
+                                </div>
+
                             </div>
 
-                        </div>
+                        </details>
 
                     {% endfor %}
 
@@ -2180,139 +3034,132 @@ textarea.form-control {
     style="display:none;"
 >
 
-    <div class="dynamic-item education-item">
-
+    <details class="dynamic-item education-item" open>
 
         {{ education_formset.empty_form.id }}
 
+        <summary class="education-summary">
 
-        <div class="item-top">
+            <div class="education-summary-left">
 
-            <div class="item-title">
+                <div class="item-title">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>New Education</span>
+                </div>
 
-                <i class="fa-solid fa-book-open"></i>
-
-                Education
-
-            </div>
-
-
-            <button
-                type="button"
-                class="remove-button remove-education"
-            >
-
-                <i class="fa-solid fa-trash"></i>
-
-                Remove
-
-            </button>
-
-        </div>
-
-
-        <div class="form-grid">
-
-
-            <div class="form-group">
-
-                <label class="form-label">
-
-                    Degree
-
-                    <span class="required">*</span>
-
-                </label>
-
-                {{ education_formset.empty_form.degree }}
+                <div class="education-summary-info">
+                    <span class="education-summary-degree">Add degree</span>
+                    <span class="education-summary-separator">•</span>
+                    <span class="education-summary-field">Add field of study</span>
+                </div>
 
             </div>
 
+            <div class="education-summary-right">
 
-            <div class="form-group">
+                <button
+                    type="button"
+                    class="remove-button remove-education"
+                >
+                    <i class="fa-solid fa-trash"></i>
+                    Remove
+                </button>
 
-                <label class="form-label">
-
-                    Field of Study
-
-                    <span class="required">*</span>
-
-                </label>
-
-                {{ education_formset.empty_form.field_of_study }}
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label class="form-label">
-
-                    Institution
-
-                </label>
-
-                {{ education_formset.empty_form.institution }}
+                <i class="fa-solid fa-chevron-down education-chevron"></i>
 
             </div>
 
-
-            <div class="form-group">
-
-                <label class="form-label">
-
-                    Status
-
-                </label>
-
-                {{ education_formset.empty_form.status }}
-
-            </div>
+        </summary>
 
 
-            <div class="form-group">
+        <div class="education-form-body">
 
-                <label class="form-label">
-
-                    Start Year
-
-                </label>
-
-                {{ education_formset.empty_form.start_year }}
-
-            </div>
+            <div class="form-grid">
 
 
-            <div class="form-group">
+                <div class="form-group">
 
-                <label class="form-label">
+                    <label class="form-label">
+                        Degree
+                        <span class="required">*</span>
+                    </label>
 
-                    End Year
+                    {{ education_formset.empty_form.degree }}
 
-                </label>
-
-                {{ education_formset.empty_form.end_year }}
-
-            </div>
+                </div>
 
 
-            <div class="form-group">
+                <div class="form-group">
 
-                <label class="form-label">
+                    <label class="form-label">
+                        Field of Study
+                        <span class="required">*</span>
+                    </label>
 
-                    Display Order
+                    {{ education_formset.empty_form.field_of_study }}
 
-                </label>
+                </div>
 
-                {{ education_formset.empty_form.display_order }}
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Institution
+                    </label>
+
+                    {{ education_formset.empty_form.institution }}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    {{ education_formset.empty_form.status }}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Start Year
+                    </label>
+
+                    {{ education_formset.empty_form.start_year }}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        End Year
+                    </label>
+
+                    {{ education_formset.empty_form.end_year }}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label class="form-label">
+                        Display Order
+                    </label>
+
+                    {{ education_formset.empty_form.display_order }}
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</div>
+    </details>
 
 
 <!-- =========================================================
@@ -2324,13 +3171,44 @@ textarea.form-control {
     style="display:none;"
 >
 
-    <div class="dynamic-item skill-item">
-
+    <details class="dynamic-item skill-item" open>
 
         {{ skill_formset.empty_form.id }}
 
+        <summary class="skill-summary">
 
-        <div class="skill-grid">
+            <div class="skill-summary-left">
+
+                <div class="item-title">
+                    <i class="fa-solid fa-code"></i>
+                    <span>New Skill</span>
+                </div>
+
+                <div class="skill-summary-info">
+                    <span class="skill-summary-name">Add skill</span>
+                </div>
+
+            </div>
+
+            <div class="skill-summary-right">
+
+                <button
+                    type="button"
+                    class="remove-button remove-skill"
+                >
+                    <i class="fa-solid fa-trash"></i>
+                    Remove
+                </button>
+
+                <i class="fa-solid fa-chevron-down skill-chevron"></i>
+
+            </div>
+
+        </summary>
+
+        <div class="skill-form-body">
+
+            <div class="skill-grid">
 
 
             <div class="form-group">
@@ -2368,9 +3246,11 @@ textarea.form-control {
 
             </button>
 
+            </div>
+
         </div>
 
-    </div>
+    </details>
 
 </div>
 
@@ -3381,8 +4261,15 @@ if (
                 html;
 
 
+            const newEducationItem =
+                wrapper.firstElementChild;
+
             educationContainer.appendChild(
-                wrapper.firstElementChild
+                newEducationItem
+            );
+
+            bindEducationSummary(
+                newEducationItem
             );
 
 
@@ -3433,6 +4320,126 @@ document.addEventListener(
 
 
 /* =========================================================
+/* =========================================================
+   EDUCATION — SUMMARY / ACCORDION
+   ========================================================= */
+
+function updateEducationSummary(item) {
+
+    if (!item) {
+        return;
+    }
+
+    const degreeInput =
+        item.querySelector('input[name$="-degree"]');
+
+    const fieldInput =
+        item.querySelector('input[name$="-field_of_study"]');
+
+    const degreeText =
+        item.querySelector(".education-summary-degree");
+
+    const fieldText =
+        item.querySelector(".education-summary-field");
+
+    if (degreeText) {
+        const degreeValue =
+            degreeInput && degreeInput.value.trim()
+                ? degreeInput.value.trim()
+                : "Add degree";
+
+        degreeText.textContent = degreeValue;
+    }
+
+    if (fieldText) {
+        const fieldValue =
+            fieldInput && fieldInput.value.trim()
+                ? fieldInput.value.trim()
+                : "Add field of study";
+
+        fieldText.textContent = fieldValue;
+    }
+}
+
+
+function bindEducationSummary(item) {
+
+    if (!item) {
+        return;
+    }
+
+    const degreeInput =
+        item.querySelector('input[name$="-degree"]');
+
+    const fieldInput =
+        item.querySelector('input[name$="-field_of_study"]');
+
+    if (degreeInput) {
+        degreeInput.addEventListener(
+            "input",
+            function() {
+                updateEducationSummary(item);
+            }
+        );
+    }
+
+    if (fieldInput) {
+        fieldInput.addEventListener(
+            "input",
+            function() {
+                updateEducationSummary(item);
+            }
+        );
+    }
+
+    updateEducationSummary(item);
+}
+
+
+/* Keep buttons / delete controls from toggling
+   the education accordion accidentally. */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const control =
+            event.target.closest(
+                ".education-summary .remove-education, " +
+                ".education-summary .delete-existing, " +
+                ".education-summary .delete-existing input"
+            );
+
+        if (control) {
+            event.stopPropagation();
+        }
+
+    }
+);
+
+
+/* Keep skill delete/remove controls from toggling the details panel. */
+document.addEventListener("click", function(event) {
+    const control =
+        event.target.closest(
+            ".skill-summary .remove-skill, " +
+            ".skill-summary .skill-delete, " +
+            ".skill-summary .skill-delete input"
+        );
+
+    if (control) {
+        event.stopPropagation();
+    }
+});
+
+
+/* Bind all existing education cards. */
+
+document
+    .querySelectorAll(".education-item")
+    .forEach(function(item) {
+        bindEducationSummary(item);
+    });
    SKILLS
 ========================================================= */
 
@@ -3458,6 +4465,47 @@ const skillEmptyForm =
     document.getElementById(
         "skillEmptyForm"
     );
+
+
+function updateSkillSummary(item) {
+    if (!item) return;
+
+    const nameInput =
+        item.querySelector('input[name$="-name"]');
+
+    const nameText =
+        item.querySelector(".skill-summary-name");
+
+    if (nameText) {
+        const nameValue =
+            nameInput && nameInput.value.trim()
+                ? nameInput.value.trim()
+                : "Add skill";
+
+        nameText.textContent = nameValue;
+    }
+}
+
+function bindSkillSummary(item) {
+    if (!item) return;
+
+    const nameInput =
+        item.querySelector('input[name$="-name"]');
+
+    if (nameInput) {
+        nameInput.addEventListener("input", function() {
+            updateSkillSummary(item);
+        });
+    }
+
+    updateSkillSummary(item);
+}
+
+document
+    .querySelectorAll(".skill-item")
+    .forEach(function(item) {
+        bindSkillSummary(item);
+    });
 
 
 /* =========================================================
@@ -3501,10 +4549,16 @@ if (
                 html;
 
 
+            const newSkillItem =
+                wrapper.firstElementChild;
+
             skillContainer.appendChild(
-                wrapper.firstElementChild
+                newSkillItem
             );
 
+            bindSkillSummary(
+                newSkillItem
+            );
 
             skillTotalForms.value =
                 index + 1;
@@ -3591,4 +4645,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
 </script>
 {% endblock %}
-

@@ -93,3 +93,13 @@ GOOGLE_CLIENT_ID = os.getenv('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.getenv('GOOGLE_CLIENT_SECRET')
 GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI')
 OAUTHLIB_INSECURE_TRANSPORT = os.getenv("OAUTHLIB_INSECURE_TRANSPORT", "0")
+"""
+before that i have to make some changes here..
+
+if new response is being submitted then i will be able to get notification via mail that this person submitted the review .and below that i have the link for the website so that i can go there and check that review.
+
+
+
+2) biju ke admin login thaya pachi within 30 mins ma auto logout thai javu joie
+
+3)  """
